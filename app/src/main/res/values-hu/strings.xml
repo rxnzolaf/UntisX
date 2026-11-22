@@ -74,7 +74,7 @@
     <string name="errormessagedictionary_no_right">Nincs joga az órarendhez</string>
     <string name="errormessagedictionary_user_locked">Felhasználó zárolva!</string>
     <string name="errors_button_dismiss">Az összes elvetése</string>
-    <string name="errors_crash_title">Úgy tűnik, a BetterUntis összeomlott.</string>
+    <string name="errors_crash_title">Úgy tűnik, a UntisX összeomlott.</string>
     <string name="errors_report">Kérjük, segítsen kijavítani az alkalmazást az alábbi hibák jelentésével:</string>
     <string name="infocenter_absence_excused">Elnézve</string>
     <string name="infocenter_absence_excused_status">Elnézve (%1$s)</string>
@@ -129,7 +129,7 @@
     <string name="main_dialog_update_profile_message">Egy friss alkalmazásfrissítés megváltoztatta a felhasználói adatok mentésének módját. Kérjük, frissítse jelenlegi profilját az alkalmazás további használatához.</string>
     <string name="main_dialog_update_profile_title">Profil frissítése szükséges</string>
     <string name="main_drawer_close">Navigációs fiók bezárása</string>
-    <string name="main_drawer_image_logo">BetterUntis Logó</string>
+    <string name="main_drawer_image_logo">UntisX Logó</string>
     <string name="main_drawer_open">Navigációs fiók megnyitása</string>
     <string name="main_go_to_settings">Menjen a beállításokhoz</string>
     <string name="main_press_back_double">A kilépéshez nyomja meg kétszer a VISSZA gombot</string>
@@ -168,8 +168,8 @@
     <string name="homeworks_due_time">esedékes %1$s</string>
     <string name="main_dialog_delete_profile_message">Biztosan törölni szeretnéd a(z) %1$s felhasználó profilját a(z) %2$s iskolából?</string>
     <string name="main_last_refreshed">Utolsó frissítés: %1$s</string>
-    <string name="login_welcome">Üdvözlünk a BetterUntis-nál!</string>
-    <string name="logindatainput_dialog_qrcodeinvalid_text">A beolvasott QR-kód formátuma érvénytelen, vagy a BetterUntis nem támogatja.</string>
+    <string name="login_welcome">Üdvözlünk a UntisX-nál!</string>
+    <string name="logindatainput_dialog_qrcodeinvalid_text">A beolvasott QR-kód formátuma érvénytelen, vagy a UntisX nem támogatja.</string>
     <string name="preference_background_cancelled">Lemondott leckék</string>
     <string name="preference_automute_allow_priority">Elsőbbségi események automatikus némítás figyelmen kívül hagyásának engedélyezése</string>
     <string name="infocenter_absences_filter">Hiányzások szűrése</string>

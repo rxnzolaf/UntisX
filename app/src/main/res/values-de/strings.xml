@@ -61,11 +61,11 @@
     <string name="main_go_to_settings">Zu den Einstellungen</string>
     <string name="main_drawer_open">Navigationsleiste öffnen</string>
     <string name="main_drawer_close">Navigationsleiste schließen</string>
-    <string name="main_drawer_image_logo">BetterUntis Logo</string>
+    <string name="main_drawer_image_logo">UntisX Logo</string>
     <string name="main_press_back_double">Drücke erneut auf die ZURÜCK-Taste, um die App zu beenden</string>
     <string name="main_time_diff_just_now">gerade eben</string>
     <string name="login_scan_code">QR-Code scannen</string>
-    <string name="login_welcome">Herzlich Willkommen bei BetterUntis!</string>
+    <string name="login_welcome">Herzlich willkommen bei UntisX!</string>
     <string name="login_please_log_in">Bitte melde dich an, um die App nutzen zu können:</string>
     <string name="login_no_results">Keine Ergebnisse</string>
     <string name="login_search_by_school_name_or_address">Nach Schule oder Adresse suchen</string>
@@ -77,7 +77,7 @@
     <string name="logindatainput_login">Anmelden</string>
     <string name="logindatainput_anonymous_login">Anonyme Anmeldung</string>
     <string name="logindatainput_dialog_qrcodeinvalid_text">Der gescannte QR-Code hat ein ungültiges Format, oder wird
-		nicht von BetterUntis unterstützt.
+		nicht von UntisX unterstützt.
 	</string>
     <string name="logindatainput_dialog_qrcodeinvalid_title">Ungültiger QR-Code</string>
     <string name="logindatainput_error_field_empty">Dieses Feld darf nicht leer sein!</string>
@@ -245,11 +245,11 @@
     <string name="preference_week_display_length_summary">Auf 0 setzen, um die Wochenlänge zu verwenden</string>
     <string name="preference_week_snap_to_days">Tageweise scrollen</string>
     <string name="preference_week_snap_to_days_summary">statt wochenweise</string>
-    <string name="settings_recommend_message">Wenn dir BetterUntis gefällt, empfiehl es deinen Freunden weiter!</string>
+    <string name="settings_recommend_message">Wenn dir UntisX gefällt, empfiehl es deinen Freunden weiter!</string>
     <string name="settings_recommend_hide">Nicht mehr anzeigen</string>
     <string name="settings_recommend_share">Teilen</string>
-    <string name="settings_recommend_title">BetterUntis weiterempfehlen</string>
-    <string name="settings_recommend_text">Entdecke BetterUntis - Eine bessere Alternative zu Untis Mobile! Hier herunterladen: %1$s</string>
+    <string name="settings_recommend_title">UntisX weiterempfehlen</string>
+    <string name="settings_recommend_text">Entdecke UntisX - Eine alternative Mobile-App für Untis! Hier herunterladen: %1$s</string>
     <string name="notifications_channel_breakinfo">Pauseninfo</string>
     <string name="notifications_channel_breakinfo_desc">Zeigt Informationen der aktuellen Pause und der nächsten Stunde an</string>
     <string name="notifications_channel_backgrounderrors">Fehler im Hintergrund</string>
@@ -265,7 +265,7 @@
     <string name="notifications_text_message_separator"> / </string>
     <string name="homeworks_due_time">bis %1$s</string>
     <string name="homeworks_due_time_format">EEE, dd. MMM</string>
-    <string name="errors_crash_title">Es sieht aus als wäre BetterUntis abgestürzt.</string>
+    <string name="errors_crash_title">Es sieht aus als wäre UntisX abgestürzt.</string>
     <string name="errors_crash_message">Entschuldigung.</string>
     <string name="errors_report">Bitte hilf, die App zu verbessern, indem du die Fehler unten meldest:</string>
     <string name="errors_button_dismiss">Alles schließen</string>
@@ -273,7 +273,7 @@
     <string name="loading">Wird geladen</string>
     <string name="loading_failed">Ladevorgang fehlgeschlagen</string>
     <string name="settings_dialog_url_open_title">Keine kompatible App gefunden</string>
-    <string name="settings_dialog_url_open_text">BetterUntis konnte keine App finden, die mit dem Öffnen von Links umgehen kann.\nBitte stelle sicher, dass du einen Webbrowser installiert hast oder öffne den Link auf einem anderen Gerät:</string>
+    <string name="settings_dialog_url_open_text">UntisX konnte keine App finden, die mit dem Öffnen von Links umgehen kann.\nBitte stelle sicher, dass du einen Webbrowser installiert hast oder öffne den Link auf einem anderen Gerät:</string>
     <string name="widget_configuration">Widget-Konfiguration</string>
     <string name="widget_timetable">Stundenplan</string>
     <string name="widget_timetable_empty">Kein Stundenplan für heute verfügbar</string>
@@ -337,19 +337,19 @@
     <string name="all_lesson_online">Findet online statt</string>
     <string name="all_open_link">Link öffnen</string>
     <string name="preference_dialog_permission_alarms_title">Berechtigung erforderlich</string>
-    <string name="preference_dialog_permission_alarms_text">Diese Funktion erfordert zusätzliche Berechtigungen. Bitte erlaube BetterUntis, genaue Alarme zu planen.</string>
+    <string name="preference_dialog_permission_alarms_text">Diese Funktion erfordert zusätzliche Berechtigungen. Bitte erlaube UntisX, genaue Alarme zu planen.</string>
     <string name="all_dialog_open_settings">Einstellungen öffnen</string>
     <string name="infocenter_absences_filter_oldest_first">Älteste zuerst</string>
     <string name="preference_reports_info">Über Fehlerberichte</string>
     <string name="infocenter_absences_filter_sort">Sortierung</string>
     <string name="infocenter_absences_filter_newest_first">Neueste zuerst</string>
     <string name="infocenter_absences_filter">Abwesenheiten filtern</string>
-    <string name="main_dialog_reports_info_1">BetterUntis verwendet Sentry, um Informationen über Abstürze und andere Fehler zu sammeln.</string>
+    <string name="main_dialog_reports_info_1">UntisX verwendet Sentry für automatische Absturz- und Fehlerberichte. Berichte enthalten nur technische Diagnosedaten und niemals Passwörter oder persönliche Zugangsdaten.</string>
     <string name="infocenter_absences_filter_only_unexcused">Nur unentschuldigte anzeigen</string>
     <string name="infocenter_absences_filter_time_ranges">Zeitraum</string>
     <string name="preference_reports_breadcrumbs">Detaillierte Fehlerberichte senden</string>
     <string name="preference_category_reports">Fehlerberichte</string>
-    <string name="preference_reports_info_desc">Diese Einstellungen betreffen alle Profile und helfen dabei, die App zu verbessern.\nPersönliche Daten werden nie gesammelt.\nÄnderungen benötigen einen App-Neustart, um wirksam zu werden.</string>
+    <string name="preference_reports_info_desc">Fehlerberichte werden automatisch bei Abstürzen/Fehlern (über Sentry) oder manuell über das Feedback-Formular bzw. GitHub erstellt. Sie enthalten technische Diagnose-Daten (z. B. Stapelauszug, Android- &amp; App-Version, Protokolle). Es werden NIEMALS Passwörter oder Zugangsdaten übertragen. Automatische Berichte können hier in den Einstellungen verwaltet werden; manuelle Berichte werden vor dem Absenden von Dir geprüft.</string>
     <string name="preference_reports_breadcrumbs_desc">Beinhaltet zusätzliche Informationen darüber, was passiert ist, bevor ein Fehler aufgetreten ist.</string>
     <string name="main_dialog_reports_info_2">Du kannst diese Werte jederzeit in den App-Einstellungen ändern.</string>
     <string name="main_dialog_reports_title">Fehlerberichte</string>

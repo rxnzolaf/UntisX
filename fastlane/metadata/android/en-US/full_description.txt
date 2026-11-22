@@ -1,4 +1,4 @@
-BetterUntis is an open-source mobile client for the Untis timetable system
+UntisX is an open-source mobile client for the Untis timetable system
 which allows you to view your timetable on your smartphone.
 
 The app allows customization of almost any aspect of your timetable,
@@ -13,7 +13,7 @@ Use Notifications to show information about the next lesson.
 Other features include a room finder to search for free rooms in your school
 and an info center to view upcoming events, your absences and more.
 
-Enjoy a fast and smooth experience with BetterUntis.
+Enjoy a fast and smooth experience with UntisX.
 
 
 Untis is proprietary timetable software. More information about Untis can be
@@ -24,6 +24,6 @@ your current timetable if no anonymous access is available.
 
 Why use this app when there is an official one?
 The official app is proprietary and includes tracking software and in-app purchases.
-BetterUntis is free and open source, feature-rich and respects your privacy.
+UntisX is free and open source, feature-rich and respects your privacy.
 
 WebUntis is a proprietary network.

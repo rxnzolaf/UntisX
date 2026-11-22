@@ -52,7 +52,7 @@
     <string name="errormessagedictionary_no_public_access">Anonieme toegang is uitgeschakeld.</string>
     <string name="all_anonymous">Anoniem</string>
     <string name="all_lesson_cancelled">%1$s (geannuleerd)</string>
-    <string name="errors_crash_title">Het lijkt erop dat BetterUntis is gecrasht.</string>
+    <string name="errors_crash_title">Het lijkt erop dat UntisX is gecrasht.</string>
     <string name="infocenter_messages_empty">Geen berichten</string>
     <string name="all_lesson_irregular">%1$s (onregelmatig)</string>
     <string name="all_back">Terug</string>

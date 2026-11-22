@@ -56,11 +56,11 @@
     <string name="main_go_to_settings">去设置</string>
     <string name="main_drawer_open">开启导航栏</string>
     <string name="main_drawer_close">关闭导航栏</string>
-    <string name="main_drawer_image_logo">BetterUntis 标志</string>
+    <string name="main_drawer_image_logo">UntisX 标志</string>
     <string name="main_press_back_double">双击“返回”即可退出</string>
     <string name="main_time_diff_just_now">刚刚</string>
     <string name="login_scan_code">扫描二维码</string>
-    <string name="login_welcome">欢迎来到BetterUntis！</string>
+    <string name="login_welcome">欢迎来到UntisX！</string>
     <string name="login_please_log_in">选择下面一项进行登录：</string>
     <string name="login_no_results">无结果</string>
     <string name="login_search_by_school_name_or_address">搜索学校名字或地址</string>

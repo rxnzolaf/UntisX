@@ -22,7 +22,7 @@
     <string name="loading">Chargement</string>
     <string name="errors_report">Aidez-nous à corriger l’appli en signalant les erreurs ci-dessous :</string>
     <string name="errors_crash_message">Désolé.</string>
-    <string name="errors_crash_title">On dirait que BetterUntis a planté.</string>
+    <string name="errors_crash_title">On dirait que UntisX a planté.</string>
     <string name="homeworks_due_time_format">EEE, dd MMM</string>
     <string name="homeworks_due_time">jusqu’à %1$s</string>
     <string name="notifications_text_message_separator">"/ "</string>
@@ -195,11 +195,11 @@
     <string name="login_search_by_school_name_or_address">Chercher par nom d’école ou par adresse</string>
     <string name="login_no_results">Aucun résultat</string>
     <string name="login_please_log_in">Choisissez une des options suivantes pour vous connecter :</string>
-    <string name="login_welcome">Bienvenue sur BetterUntis !</string>
+    <string name="login_welcome">Bienvenue sur UntisX !</string>
     <string name="login_scan_code">Scanner le code QR</string>
     <string name="main_time_diff_just_now">à l’instant</string>
     <string name="main_press_back_double">Appuyez sur Retour deux fois pour quitter</string>
-    <string name="main_drawer_image_logo">Logo de BetterUntis</string>
+    <string name="main_drawer_image_logo">Logo de UntisX</string>
     <string name="main_drawer_close">Fermer le panneau de navigation</string>
     <string name="main_drawer_open">Ouvrir le panneau de navigation</string>
     <string name="main_go_to_settings">Aller aux réglages</string>
@@ -287,7 +287,7 @@
     <string name="preference_automute_mute_priority">Ne pas permettre aux événements prioritaires d\'ignorer la mise en sourdine automatique</string>
     <string name="errors_button_dismiss">Rejeter tout</string>
     <string name="mainactivitydrawer_profile_edit">Modifier les profils</string>
-    <string name="settings_recommend_title">Recommander BetterUntis</string>
+    <string name="settings_recommend_title">Recommander UntisX</string>
     <string name="preference_automute_minimum_break_length_summary">Ne pas rétablir le son de l\'appareil pendant les pauses d\'une durée inférieure à la durée spécifiée (en minutes)</string>
     <string name="settings_dialog_url_open_title">Aucune application compatible trouvée</string>
     <string name="preference_dark_theme_auto">Suivez le système</string>
@@ -303,7 +303,7 @@
     <string name="all_lesson_info">Info</string>
     <string name="infocenter_absence_excused">Excusé</string>
     <string name="infocenter_absence_unexcused">Non excusé</string>
-    <string name="logindatainput_dialog_qrcodeinvalid_text">Le format du code QR scanné n\'est pas valide ou n\'est pas pris en charge par BetterUntis.</string>
+    <string name="logindatainput_dialog_qrcodeinvalid_text">Le format du code QR scanné n\'est pas valide ou n\'est pas pris en charge par UntisX.</string>
     <string name="logindatainput_profilename">Nom du profil (facultatif)</string>
     <string name="main_dialog_delete_bookmark">Souhaitez-vous supprimer ce favori \?</string>
     <string name="preference_info_privacy_policy">Politique de confidentialité</string>
@@ -329,10 +329,10 @@
     <string name="preference_info_privacy_desc">Les contributeurs sont chargés à partir de GitHub. Lisez la politique de confidentialité de GitHub pour plus d\'informations.</string>
     <string name="preferences_theme_color">Couleur du thème</string>
     <string name="roomfinder_error">Erreur de chargement des données.</string>
-    <string name="settings_recommend_message">Si vous appréciez BetterUntis, passez le mot et parlez-en à vos amis !</string>
+    <string name="settings_recommend_message">Si vous appréciez UntisX, passez le mot et parlez-en à vos amis !</string>
     <string name="settings_recommend_share">Partager</string>
-    <string name="settings_recommend_text">Essayez BetterUntis - Une meilleure alternative à Untis Mobile ! Télécharger à %1$s</string>
-    <string name="settings_dialog_url_open_text">BetterUntis n\'a pas trouvé d\'application capable de gérer l\'ouverture des liens.
+    <string name="settings_recommend_text">Essayez UntisX - Une meilleure alternative à Untis Mobile ! Télécharger à %1$s</string>
+    <string name="settings_dialog_url_open_text">UntisX n\'a pas trouvé d\'application capable de gérer l\'ouverture des liens.
 \nVeuillez vous assurer qu\'un navigateur web est installé ou ouvrez le lien sur un autre appareil :</string>
     <string name="all_reload">Rechargement</string>
     <string name="widget_disclaimer_title">Fonctionnalité bêta</string>
@@ -340,14 +340,14 @@
     <string name="login_demo">Essayez-le !</string>
     <string name="all_lesson_online">Se déroulant en ligne</string>
     <string name="all_open_link">Ouvrir le lien</string>
-    <string name="preference_dialog_permission_alarms_text">Cette fonction nécessite des autorisations supplémentaires. Veuillez autoriser BetterUntis à programmer des alarmes exactes.</string>
+    <string name="preference_dialog_permission_alarms_text">Cette fonction nécessite des autorisations supplémentaires. Veuillez autoriser UntisX à programmer des alarmes exactes.</string>
     <string name="preference_reports_info_desc">Ces paramètres permettent d\'améliorer l\'application.
 \nAucune information personnelle n\'est jamais collectée.
 \nLes modifications nécessitent un redémarrage de l\'application pour être prises en compte.</string>
     <string name="preference_reports_breadcrumbs">Envoyer les erreurs détaillées</string>
     <string name="preference_reports_breadcrumbs_desc">Inclure des informations supplémentaires sur ce qui s\'est passé avant qu\'une erreur ne se produise.</string>
     <string name="main_dialog_reports_info_2">Vous pouvez toujours modifier ces valeurs ultérieurement dans les paramètres de l\'application.</string>
-    <string name="main_dialog_reports_info_1">BetterUntis utilise Sentry pour collecter des informations sur les pannes et autres erreurs.</string>
+    <string name="main_dialog_reports_info_1">UntisX utilise Sentry pour collecter des informations sur les pannes et autres erreurs.</string>
     <string name="main_dialog_reports_save">Sauver</string>
     <string name="infocenter_absences_list_seven_days">Afficher les 7 derniers jours</string>
     <string name="infocenter_absences_list_fourteen_days">Afficher les 14 derniers jours</string>

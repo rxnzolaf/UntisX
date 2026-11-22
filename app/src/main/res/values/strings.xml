@@ -54,7 +54,7 @@
     <string name="all_teachers">Teachers</string>
     <string name="all_yes">Yes</string>
     <string name="app_desc">An alternative mobile client for the Untis timetable system.</string>
-    <string name="app_name" translatable="false">BetterUntis</string>
+    <string name="app_name" translatable="false">UntisX</string>
     <string name="elementpicker_hint_search">Search…</string>
     <string name="elementpicker_hint_search_classes">Search for classes…</string>
     <string name="elementpicker_hint_search_rooms">Search for rooms…</string>
@@ -74,7 +74,7 @@
     <string name="errors_button_dismiss">Dismiss all</string>
     <string name="errors_button_report">Report all</string>
     <string name="errors_crash_message">Sorry for that.</string>
-    <string name="errors_crash_title">It looks like BetterUntis crashed.</string>
+    <string name="errors_crash_title">It looks like UntisX crashed.</string>
     <string name="errors_github_attach_file_message">Please attach the compressed log files to this issue.\nThey have been saved to `%1$s`</string>
     <string name="errors_report">Please help to fix the app by reporting the errors below:</string>
     <string name="homeworks_due_time">due %1$s</string>
@@ -130,7 +130,7 @@
     <string name="login_please_log_in">Choose one of the following options to login:</string>
     <string name="login_scan_code">Scan QR code</string>
     <string name="login_search_by_school_name_or_address">Search by school name or address</string>
-    <string name="login_welcome">Welcome to BetterUntis!</string>
+    <string name="login_welcome">Welcome to UntisX!</string>
     <string name="logindatainput_adding_user_unknown_error">An unknown error happened while adding the user.</string>
     <string name="logindatainput_anonymous_login">Anonymous login</string>
     <string name="logindatainput_api_url">Untis API path</string>
@@ -139,7 +139,7 @@
     <string name="logindatainput_connecting">Connecting…</string>
     <string name="logindatainput_data_loaded">Data loaded.</string>
     <string name="logindatainput_delete">Delete profile</string>
-    <string name="logindatainput_dialog_qrcodeinvalid_text">The scanned QR code either has an invalid format or is not supported by BetterUntis.</string>
+    <string name="logindatainput_dialog_qrcodeinvalid_text">The scanned QR code either has an invalid format or is not supported by UntisX.</string>
     <string name="logindatainput_dialog_qrcodeinvalid_title">Invalid QR code</string>
     <string name="logindatainput_error_field_empty">This field cannot be empty!</string>
     <string name="logindatainput_error_invalid_format">Invalid format!</string>
@@ -171,7 +171,7 @@
     <string name="main_dialog_update_profile_message">A recent app update has changed the way user data is saved. Please update your current profile to continue using the app.</string>
     <string name="main_dialog_update_profile_title">Profile update required</string>
     <string name="main_drawer_close">Close navigation drawer</string>
-    <string name="main_drawer_image_logo">BetterUntis Logo</string>
+    <string name="main_drawer_image_logo">UntisX Logo</string>
     <string name="main_drawer_open">Open navigation drawer</string>
     <string name="main_go_to_settings">Go to settings</string>
     <string name="main_last_refreshed">Last refreshed: %1$s</string>
@@ -346,12 +346,12 @@
     <string name="roomfinder_loading_data">Loading data…</string>
     <string name="roomfinder_no_rooms">No rooms to display.\nTap + to add one!</string>
     <string name="settings_recommend_hide">Don\'t show again</string>
-    <string name="settings_recommend_message">If you are enjoying BetterUntis, spread the word and tell your friends!</string>
+    <string name="settings_recommend_message">If you are enjoying UntisX, spread the word and tell your friends!</string>
     <string name="settings_recommend_share">Share</string>
-    <string name="settings_recommend_text">Try BetterUntis - A better alternative to Untis Mobile! Download at %1$s</string>
-    <string name="settings_recommend_title">Recommend BetterUntis</string>
+    <string name="settings_recommend_text">Try UntisX - A better alternative to Untis Mobile! Download at %1$s</string>
+    <string name="settings_recommend_title">Recommend UntisX</string>
     <string name="settings_dialog_url_open_title">No compatible app found</string>
-    <string name="settings_dialog_url_open_text">BetterUntis could not find an app that can handle opening links.\nPlease ensure you have a web browser installed or open the link on another device:</string>
+    <string name="settings_dialog_url_open_text">UntisX could not find an app that can handle opening links.\nPlease ensure you have a web browser installed or open the link on another device:</string>
     <string name="widget_configuration">Widget Configuration</string>
     <string name="widget_daily_messages">Daily Messages</string>
     <string name="widget_select_profile">Please select a profile for the widget</string>
@@ -390,15 +390,15 @@
     <string name="all_lesson_online">Taking place online</string>
     <string name="all_open_link">Open link</string>
     <string name="preference_dialog_permission_alarms_title">Permission needed</string>
-    <string name="preference_dialog_permission_alarms_text">This feature requires additional permissions. Please allow BetterUntis access to schedule exact alarms.</string>
+    <string name="preference_dialog_permission_alarms_text">This feature requires additional permissions. Please allow UntisX access to schedule exact alarms.</string>
     <string name="all_dialog_open_settings">Open settings</string>
     <string name="preference_category_reports">Error Reporting</string>
     <string name="preference_reports_info">About error reporting</string>
-    <string name="preference_reports_info_desc">These settings apply to all profiles and help to improve the application.\nNo personal information is ever collected.\nChanges need an app restart to take effect.</string>
+    <string name="preference_reports_info_desc">Reports are created automatically upon crashes/errors (via Sentry) or manually via feedback/GitHub issue reports. They contain technical diagnostics (e.g. stack trace, OS &amp; app version, logs). Passwords and credentials are NEVER included. Automatic reporting can be managed here in settings; manual reports can be reviewed before submission.</string>
     <string name="preference_reports_breadcrumbs">Send detailed errors</string>
     <string name="preference_reports_breadcrumbs_desc">Include additional information about what happened before an error occurred.</string>
     <string name="main_dialog_reports_info_2">You can always change these values later in the app settings.</string>
-    <string name="main_dialog_reports_info_1">BetterUntis uses Sentry to collect information about crashes and other errors.</string>
+    <string name="main_dialog_reports_info_1">UntisX uses Sentry for automatic crash and error reporting. Reports contain only technical diagnostic data and never include passwords or credentials.</string>
     <string name="main_dialog_reports_title">Error Reporting</string>
     <string name="main_dialog_reports_save">Save</string>
     <string name="infocenter_absences_list_seven_days">Show last 7 days</string>

@@ -49,8 +49,8 @@ body:
   - type: input
     id: app-version
     attributes:
-      label: BetterUntis Version
-      description: BetterUntis Settings -> About -> App version
+      label: UntisX Version
+      description: UntisX Settings -> About -> App version
       placeholder: ex. 1.0.0 (1)
     validations:
       required: true

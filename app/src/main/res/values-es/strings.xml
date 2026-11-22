@@ -26,7 +26,7 @@
     <string name="activity_title_settings">Configuración</string>
     <string name="errormessagedictionary_no_right">Sin derecho a horario</string>
     <string name="login_scan_code">Escanear código QR</string>
-    <string name="login_welcome">¡Bienvenido a BetterUntis!</string>
+    <string name="login_welcome">¡Bienvenido a UntisX!</string>
     <string name="login_please_log_in">Elija una de las siguientes opciones para iniciar sesión:</string>
     <string name="logindatainput_adding_user_unknown_error">Se ha producido un error desconocido al añadir el usuario.</string>
     <string name="logindatainput_anonymous_login">Inicio de sesión anónimo</string>
@@ -55,7 +55,7 @@
     <string name="elementpicker_hint_search_rooms">Buscar aulas…</string>
     <string name="elementpicker_hint_search">Buscar…</string>
     <string name="elementpicker_hint_search_teachers">Buscar profesores…</string>
-    <string name="errors_crash_title">Parece que BetterUntis falló.</string>
+    <string name="errors_crash_title">Parece que UntisX falló.</string>
     <string name="homeworks_due_time">vencimiento %1$s</string>
     <string name="errors_crash_message">Lo siento.</string>
     <string name="errors_button_dismiss">Descartar todo</string>
@@ -88,7 +88,7 @@
     <string name="homeworks_due_time_format">dd MM yyyy</string>
     <string name="logindatainput_dialog_qrcodeinvalid_title">Código QR incorrecto</string>
     <string name="logindatainput_error_field_empty">¡Este campo no puede estar vacío!</string>
-    <string name="logindatainput_dialog_qrcodeinvalid_text">El código QR escaneado tiene un formato no válido o no es compatible con BetterUntis.</string>
+    <string name="logindatainput_dialog_qrcodeinvalid_text">El código QR escaneado tiene un formato no válido o no es compatible con UntisX.</string>
     <string name="infocenter_absences_filter_only_unexcused">Mostrar sólo las no justificadas</string>
     <string name="infocenter_absences_filter_sort">Ordenar</string>
     <string name="infocenter_absences_filter_newest_first">Primero el más nuevo</string>
@@ -258,7 +258,7 @@
     <string name="preferences_default_color">Color predeterminado</string>
     <string name="preference_background_cancelled">Lecciones canceladas</string>
     <string name="main_drawer_open">Abrir cajón de navegación</string>
-    <string name="main_drawer_image_logo">Logo de BetterUntis</string>
+    <string name="main_drawer_image_logo">Logo de UntisX</string>
     <string name="preference_category_notifications_visible_fields">Campos visibles</string>
     <string name="preference_category_styling_backgrounds">Colores de elementos</string>
     <string name="preference_category_styling_colors">Colores</string>

@@ -39,11 +39,11 @@
     <string name="logindatainput_adding_user_unknown_error">Errore ezezagun bat gertatu da erabiltzailea gehitzean.</string>
     <string name="login_no_results">Emaitzarik ez</string>
     <string name="login_please_log_in">Hautatu aukera hauetako bat saioa hasteko:</string>
-    <string name="login_welcome">Ongi etorri BetterUntisera!</string>
+    <string name="login_welcome">Ongi etorri UntisXera!</string>
     <string name="login_scan_code">Eskaneatu QR kodea</string>
     <string name="main_time_diff_just_now">oraintxe</string>
     <string name="main_press_back_double">Sakatu birritan ATZERA irteteko</string>
-    <string name="main_drawer_image_logo">BetterUntis logotipoa</string>
+    <string name="main_drawer_image_logo">UntisX logotipoa</string>
     <string name="main_drawer_close">Itxi nabigazio-tiradera</string>
     <string name="main_drawer_open">Ireki nabigazio-tiradera</string>
     <string name="main_go_to_settings">Joan ezarpenetara</string>
@@ -124,7 +124,7 @@
     <string name="loading">Kargatzen</string>
     <string name="errors_report">Mesedez, lagundu aplikazioa konpontzen beheko akatsen berri emanez:</string>
     <string name="errors_crash_message">Barkatu eragozpenak.</string>
-    <string name="errors_crash_title">Badirudi BetterUntisek huts egin duela.</string>
+    <string name="errors_crash_title">Badirudi UntisXek huts egin duela.</string>
     <string name="homeworks_due_time">noiz arte: %1$s</string>
     <string name="notifications_text_message_separator">"/ "</string>
     <string name="notifications_text_message_classes">Klasea: %1$s</string>

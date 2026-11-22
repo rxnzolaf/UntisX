@@ -80,8 +80,9 @@ android {
 			isMinifyEnabled = true
 			isShrinkResources = true
 			proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("debug")
 
-			if (file("BetterUntis.jks").exists()) {
+            if (file("BetterUntis.jks").exists()) {
 				signingConfig = signingConfigs.getByName("release")
 			}
 		}
@@ -144,8 +145,12 @@ sentry {
 }
 
 aboutLibraries {
-	includePlatform = false
-	duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+	collect {
+		includePlatform = false
+	}
+	library {
+		duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
+	}
 }
 
 protobuf {

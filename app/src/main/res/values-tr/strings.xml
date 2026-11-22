@@ -105,11 +105,11 @@
     <string name="login_search_by_school_name_or_address">Okul adı veya adres ile arama yap</string>
     <string name="login_no_results">Sonuç yok</string>
     <string name="login_please_log_in">Giriş yapmak için aşağıdaki seçeneklerden birini seçiniz:</string>
-    <string name="login_welcome">BetterUntis\'e Hoşgeldiniz!</string>
+    <string name="login_welcome">UntisX\'e Hoşgeldiniz!</string>
     <string name="login_scan_code">QR kodu okut</string>
     <string name="main_time_diff_just_now">henüz</string>
     <string name="main_press_back_double">Çıkmak için iki defa GERİ\'ye basın</string>
-    <string name="main_drawer_image_logo">BetterUntis Logosu</string>
+    <string name="main_drawer_image_logo">UntisX Logosu</string>
     <string name="main_drawer_close">Navigasyon sekmesini kapat</string>
     <string name="main_drawer_open">Navigasyon sekmesini aç</string>
     <string name="main_go_to_settings">Ayarlara git</string>
@@ -286,7 +286,7 @@
     <string name="all_lesson_info">Bilgi</string>
     <string name="all_lessontopic_edit">Ders konusunu güncelle</string>
     <string name="errors_button_dismiss">Tümünü reddet</string>
-    <string name="errors_crash_title">BetterUntis çökmüş gibi görünüyor.</string>
+    <string name="errors_crash_title">UntisX çökmüş gibi görünüyor.</string>
     <string name="infocenter_absence_excused">Mazeretli</string>
     <string name="infocenter_absence_unexcused">Mazeretsiz</string>
     <string name="main_dialog_delete_bookmark">Bu yer imini silmek ister misiniz?</string>
@@ -315,7 +315,7 @@
     <string name="preference_info_privacy_policy">Gizlilik Politikası</string>
     <string name="preference_info_privacy">Harici İçerik</string>
     <string name="preference_notifications_first_lesson_time_unit">ilk dersten en az önce</string>
-    <string name="logindatainput_dialog_qrcodeinvalid_text">Taranan QR kodu ya geçersiz bir biçime sahip ya da BetterUntis tarafından desteklenmiyor.</string>
+    <string name="logindatainput_dialog_qrcodeinvalid_text">Taranan QR kodu ya geçersiz bir biçime sahip ya da UntisX tarafından desteklenmiyor.</string>
     <string name="preference_automute_minimum_break_length">Minimum mola uzunluğu</string>
     <string name="all_exit">Çıkış</string>
     <string name="infocenter_absences_filter_only_unexcused">Sadece mazeretsiz olanları göster</string>
@@ -332,12 +332,12 @@
     <string name="preferences_theme_color">Tema rengi</string>
     <string name="preferences_theme_color_system">Sistem tema rengi</string>
     <string name="settings_recommend_hide">Bir daha gösterme</string>
-    <string name="settings_recommend_message">BetterUntis\'ten keyif alıyorsanız, arkadaşlarınıza da anlatın!</string>
+    <string name="settings_recommend_message">UntisX\'ten keyif alıyorsanız, arkadaşlarınıza da anlatın!</string>
     <string name="settings_recommend_share">Paylaş</string>
-    <string name="settings_recommend_title">BetterUntis’i öner</string>
+    <string name="settings_recommend_title">UntisX’i öner</string>
     <string name="settings_dialog_url_open_title">Uyumlu uygulama bulunamadı</string>
     <string name="roomfinder_error">Veri yüklenirken hata oluştu.</string>
-    <string name="settings_recommend_text">BetterUntis\'i deneyin - Untis Mobile\'a daha iyi bir alternatif! %1$s adresinden indirin</string>
+    <string name="settings_recommend_text">UntisX\'i deneyin - Untis Mobile\'a daha iyi bir alternatif! %1$s adresinden indirin</string>
     <string name="preference_notifications_multiple_desc">Bildirimler bir saatten çok süren derslerin aralarında gösterilecek</string>
     <string name="preference_timetable_colors_reset_desc">Bu eylem neticesinde etkin temas rengiyle eşlenirler.</string>
     <string name="preference_week_custom_range">Özel hafta aralığı</string>

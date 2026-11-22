@@ -1,10 +1,10 @@
-BetterUntis ist eine Open-Source-App für Untis,
+UntisX ist eine Open-Source-App für Untis,
 mit der du auf deinen Stundenplan ganz bequem vom Smartphone aus zugreifen kannst.
 
 Die App erlaubt endlose Anpassungsmöglichkeiten des Stundenplans und verfügt über mehrere Themes,
 inklusive Nacht-Modus.
 
-Verwende mehrere Profile auf einmal mit separaten Einstellungen und Stundenplänen.
+Verwende meherere Profile auf einmal mit separaten Einstellungen und Stundenplänen.
 
 Schütze deine Privatsphäre durch Proxy-Server-Unterstützung.
 
@@ -14,7 +14,7 @@ Weitere Funktionen beinhalten eine Raum-Suche,
 mit der du freie Räume in deiner Schule finden kannst,
 und das Info-Center, um Abwesenheiten, Tests und mehr im Auge behalten zu können.
 
-Genieße eine schnelle und flüssige Erfahrung mit BetterUntis.
+Genieße eine schnelle und flüssige Erfahrung mit UntisX.
 
 
 Untis ist eine proprietäre Stundenplan-Software. Mehr Informationen über Untis
@@ -25,6 +25,6 @@ Stundenplan aufrufen kannst, sollte kein anonymer Zugang verfügbar sein.
 
 Warum solltest du noch diese App anstatt der offiziellen benutzen?
 Die offizielle App ist proprietär und beinhaltet Tracking-Software und In-App-Käufe.
-BetterUntis ist kostenlos und Open Source, funktionsreich und schützt deine Privatsphäre.
+UntisX ist kostenlos und Open Source, funktionsreich und schützt deine Privatsphäre.
 
 WebUntis ist ein propritäres Netzwerk.

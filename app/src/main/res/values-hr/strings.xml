@@ -37,7 +37,7 @@
     <string name="loading">Učitavanje</string>
     <string name="errors_report">Pomogni popraviti aplikaciju prijavljivanjem donjih grešaka:</string>
     <string name="errors_crash_message">Žao nam je.</string>
-    <string name="errors_crash_title">Čini se da je BetterUntis prekinuo rad.</string>
+    <string name="errors_crash_title">Čini se da je UntisX prekinuo rad.</string>
     <string name="homeworks_due_time_format">EEE, dd. MMM</string>
     <string name="homeworks_due_time">do %1$s</string>
     <string name="notifications_text_message_separator">/</string>
@@ -195,11 +195,11 @@
     <string name="login_search_by_school_name_or_address">Traži škole ili adresu škole</string>
     <string name="login_no_results">Nema rezultata</string>
     <string name="login_please_log_in">Odaberi jednu od sljedećih opcija za prijavu:</string>
-    <string name="login_welcome">BetterUntis dobrodošlica!</string>
+    <string name="login_welcome">UntisX dobrodošlica!</string>
     <string name="login_scan_code">Snimi QR-kod</string>
     <string name="main_time_diff_just_now">upravo sada</string>
     <string name="main_press_back_double">Za zatvaranje aplikacije dvaput pritisni gumb NATRAG</string>
-    <string name="main_drawer_image_logo">BetterUntis logotip</string>
+    <string name="main_drawer_image_logo">UntisX logotip</string>
     <string name="main_drawer_close">Zatvori navigaciju</string>
     <string name="main_drawer_open">Otvori navigaciju</string>
     <string name="main_go_to_settings">Idi na postavke</string>
@@ -312,7 +312,7 @@
     <string name="errors_button_dismiss">Odbaci sve</string>
     <string name="infocenter_absences_filter_time_ranges">Vremenski raspon</string>
     <string name="preference_automute_mute_priority">Nemoj dopustiti da prioritetni događaji ignoriraju automatsko isključivanje zvuka</string>
-    <string name="settings_dialog_url_open_text">BetterUntis nije mogao pronaći aplikaciju koja može otvarati poveznice.\nProvjeri imaš li instaliran web preglednik ili otvori poveznicu na jednom drugom uređaju:</string>
+    <string name="settings_dialog_url_open_text">UntisX nije mogao pronaći aplikaciju koja može otvarati poveznice.\nProvjeri imaš li instaliran web preglednik ili otvori poveznicu na jednom drugom uređaju:</string>
     <string name="widget_disclaimer_text">Funkcija widgeta se još uvijek nalazi u fazi razvoja i možda neće ispravno raditi na svim uređajima.</string>
     <string name="logindatainput_dialog_qrcodeinvalid_title">Nevažeći QR kod</string>
     <string name="maindrawer_bookmarks_add">Dodaj raspored sati</string>
@@ -326,8 +326,8 @@
     <string name="all_favourites">Favoriti</string>
     <string name="preference_dialog_permission_alarms_title">Potrebna je dozvola</string>
     <string name="all_dialog_open_settings">Otvori postavke</string>
-    <string name="preference_dialog_permission_alarms_text">Ova funkcija zahtijeva dodatne dozvole. Dozvoli BetterUntis pristup za određivanje točnih alarma.</string>
-    <string name="logindatainput_dialog_qrcodeinvalid_text">Skenirani QR kod sadrži nevažeći format ili ga BetterUntis ne podržava.</string>
+    <string name="preference_dialog_permission_alarms_text">Ova funkcija zahtijeva dodatne dozvole. Dozvoli UntisX pristup za određivanje točnih alarma.</string>
+    <string name="logindatainput_dialog_qrcodeinvalid_text">Skenirani QR kod sadrži nevažeći format ili ga UntisX ne podržava.</string>
     <string name="logindatainput_error_invalid_format">Nevažeći format!</string>
     <string name="logindatainput_key_saved">Ključ ili lozinka (spremljeno)</string>
     <string name="logindatainput_profilename">Ime profila (opcionalno)</string>
@@ -336,10 +336,10 @@
     <string name="preference_automute_minimum_break_length_summary">Nemoj uključivati zvuk uređaja tijekom pauza kraćih od navedene duljine (u minutama)</string>
     <string name="preference_category_display_options">Opcije prikaza</string>
     <string name="settings_recommend_hide">Nemoj više prikazivati</string>
-    <string name="settings_recommend_message">Ako voliš BetterUntis, širi vijest i obavijesti svoje prijatelje!</string>
+    <string name="settings_recommend_message">Ako voliš UntisX, širi vijest i obavijesti svoje prijatelje!</string>
     <string name="settings_recommend_share">Dijeli</string>
-    <string name="settings_recommend_text">Isprobaj BetterUntis – bolja alternativa za Untis Mobile! Preuzmi na %1$s</string>
-    <string name="settings_recommend_title">Preporuči BetterUntis</string>
+    <string name="settings_recommend_text">Isprobaj UntisX – alternativa za Untis Mobile! Preuzmi na %1$s</string>
+    <string name="settings_recommend_title">Preporuči UntisX</string>
     <string name="all_datepicker_select">Odaberi datum</string>
     <string name="all_open_link">Otvori poveznicu</string>
     <string name="preference_category_reports">Izvještavanje grešaka</string>
@@ -357,7 +357,7 @@
     <string name="infocenter_absences_list_ninety_days">Pokaži zadnjih 90 dana</string>
     <string name="infocenter_absences_list_schoolyear">Aktualna školska godina</string>
     <string name="main_dialog_reports_info_2">Ove vrijednosti možeš kasnije promijeniti u postavkama aplikacije.</string>
-    <string name="main_dialog_reports_info_1">BetterUntis koristi Sentry za prikupljanje informacija o prekidima rada aplikacije i drugim greškama.</string>
+    <string name="main_dialog_reports_info_1">UntisX koristi Sentry za prikupljanje informacija o prekidima rada aplikacije i drugim greškama.</string>
     <string name="elementpicker_timetable_select">Odaberi raspored sati</string>
     <string name="all_personal_abbr">Osobno</string>
     <string name="preference_category_app_language">Jezik aplikacije</string>
