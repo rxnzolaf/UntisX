@@ -23,6 +23,11 @@ enum AbsencesTimeRange {
   NINETY_DAYS = 4;
 }
 
+enum AppTheme {
+  STANDARD = 0;
+  GAMING = 1;
+}
+
 message UserSettings {
   bool exitConfirmation = 1;
   bool flingEnable = 2;
@@ -78,6 +83,7 @@ message UserSettings {
   bool infocenterAbsencesSortReverse = 51;
   AbsencesTimeRange infocenterAbsencesTimeRange = 52;
   repeated TimetableElement bookmarks = 57;
+  AppTheme appTheme = 58;
 }
 
 message GlobalSettings {

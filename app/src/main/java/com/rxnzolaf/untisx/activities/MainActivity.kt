@@ -90,6 +90,10 @@ class MainActivity : ComponentActivity() {
 				if (it.customThemeColor) Color(it.themeColor) else null
 			}.collectAsState(null)
 
+			val appTheme by userSettingsRepository.getSettings().map {
+				it.appTheme
+			}.collectAsState(com.sapuseven.untis.data.settings.model.AppTheme.STANDARD)
+
 			val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 			LaunchedEffect(globalSettingsRepository) {
 				scope.launch {
@@ -101,7 +105,7 @@ class MainActivity : ComponentActivity() {
 				}
 			}
 
-			AppTheme(darkTheme, darkThemeOled, themeColor) {
+			AppTheme(darkTheme, darkThemeOled, themeColor, appTheme) {
 				Surface(
 					modifier = Modifier.fillMaxSize()
 				) {

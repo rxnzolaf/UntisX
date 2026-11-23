@@ -1,10 +1,8 @@
+# Disabled for now, re-enable by restoring the push/pull_request triggers.
 name: Deploy App
 
 on:
-  push:
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
-      - "[0-9]+.[0-9]+.[0-9]+-[a-zA-Z0-9]+"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -39,15 +37,12 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_DEBUG_PASSWORD: ${{ secrets.KEY_DEBUG_PASSWORD }}
           KEY_RELEASE_PASSWORD: ${{ secrets.KEY_RELEASE_PASSWORD }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         run: ./gradlew assembleRelease bundleRelease
 
       - name: Upload release files
         uses: actions/upload-artifact@v4
         with:
-          name: betteruntis-release
+          name: untisx-release
           path: app/build/outputs
 
   github:
@@ -60,7 +55,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: betteruntis-release
+          name: untisx-release
           path: app/build/outputs
           
       - name: Create release
@@ -70,9 +65,9 @@ jobs:
         run: |
           gh release create "$TAG" \
               --prerelease \
-              --title "BetterUntis $TAG" \
+              --title "UntisX $TAG" \
               --notes-file "./fastlane/metadata/android/en-US/changelogs/$TAG.txt" \
-              "./app/build/outputs/apk/gms/release/app-gms-release.apk#BetterUntis $TAG.apk"
+              "./app/build/outputs/apk/gms/release/app-gms-release.apk#UntisX $TAG.apk"
 
   fastlane:
     name: Create Release on Google Play Store
@@ -84,7 +79,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: betteruntis-release
+          name: untisx-release
           path: app/build/outputs
 
       - name: Setup Ruby
@@ -120,7 +115,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: betteruntis-release
+          name: untisx-release
           path: app/build/outputs
 
       - name: Prepare release for F-Droid
@@ -153,7 +148,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: betteruntis-release
+          name: untisx-release
           path: app/build/outputs
 
       - name: Upload APK via SSH

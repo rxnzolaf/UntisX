@@ -7,7 +7,6 @@ import java.util.Properties
 
 plugins {
 	alias(libs.plugins.agp.application)
-	alias(libs.plugins.sentry.gradle)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.kotlin.serialization)
@@ -43,7 +42,7 @@ android {
 		vectorDrawables.useSupportLibrary = true
 		testInstrumentationRunner = "com.sapuseven.untis.HiltTestRunner"
 
-		buildConfigField("String", "SENTRY_DSN", "\"https://d3b77222abce4fcfa74fda2185e0f8dc@o1136770.ingest.sentry.io/6188900\"")
+
 
 		ksp {
 			arg("room.schemaLocation", "$projectDir/schemas")
@@ -140,9 +139,7 @@ android {
 	}
 }
 
-sentry {
-	autoUploadProguardMapping.set(System.getenv("SENTRY_PROJECT") != null)
-}
+
 
 aboutLibraries {
 	collect {
@@ -227,8 +224,7 @@ dependencies {
 	implementation(libs.material.theme.adapter)
 	implementation(libs.mikepenz.aboutlibraries.compose)
 	implementation(libs.mikepenz.aboutlibraries.core)
-	implementation(libs.sentry.android)
-	implementation(libs.sentry.compose.android)
+
 	implementation(libs.zxing)
 	implementation(libs.protobuf.javalite)
 	implementation(libs.androidx.transition.ktx)
@@ -266,12 +262,8 @@ dependencies {
 
 	// fix for Crash from missing `beginTransactionReadOnly()` method in Room due to sqlite version mismatch
 	// see https://issuetracker.google.com/issues/400483860#comment7
-	implementation("androidx.sqlite:sqlite:2.5.1") {
-		exclude(group = "io.sentry", module = "sentry-android-sqlite")
-	}
-	implementation("androidx.sqlite:sqlite-ktx:2.5.1") {
-		exclude(group = "io.sentry", module = "sentry-android-sqlite")
-	}
+	implementation("androidx.sqlite:sqlite:2.5.1")
+	implementation("androidx.sqlite:sqlite-ktx:2.5.1")
 	configurations.configureEach {
 		resolutionStrategy {
 			force("androidx.sqlite:sqlite:2.5.1")

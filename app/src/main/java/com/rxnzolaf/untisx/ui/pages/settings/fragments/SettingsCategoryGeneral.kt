@@ -18,6 +18,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.core.content.pm.PackageInfoCompat
 import com.sapuseven.compose.protostore.ui.preferences.Preference
 import com.sapuseven.compose.protostore.ui.preferences.PreferenceGroup
 import com.sapuseven.compose.protostore.ui.preferences.SwitchPreference
@@ -27,7 +29,6 @@ import com.sapuseven.untis.activities.AutoMuteConfigurationActivity
 import com.sapuseven.untis.services.AutoMuteServiceZenRuleImpl
 import com.sapuseven.untis.ui.pages.settings.SettingsScreenViewModel
 import com.sapuseven.untis.ui.pages.settings.automute.AutoMuteSettingsViewModel.Companion.EXTRA_USER_ID
-import io.sentry.Sentry
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -162,6 +163,9 @@ fun SettingsCategoryGeneral(viewModel: SettingsScreenViewModel) {
 		}
 	}
 
+	val uriHandler = LocalUriHandler.current
+	val context = LocalContext.current
+
 	PreferenceGroup(stringResource(R.string.preference_category_reports)) {
 		Preference(
 			title = { Text(stringResource(R.string.preference_reports_info)) },
@@ -174,37 +178,42 @@ fun SettingsCategoryGeneral(viewModel: SettingsScreenViewModel) {
 			}
 		)
 
-		SwitchPreference(
-			title = { Text(stringResource(R.string.preference_reports_enable)) },
-			settingsRepository = viewModel.globalRepository,
-			value = { it.errorReportingEnable },
-			onValueChange = { errorReportingEnable = it }
-		)
+		Preference(
+			title = { Text(stringResource(R.string.preference_report_bug)) },
+			summary = { Text(stringResource(R.string.preference_report_bug_desc)) },
+			leadingContent = {
+				Icon(
+					painter = painterResource(R.drawable.all_feedback),
+					contentDescription = null
+				)
+			},
+			onClick = {
+				val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+				val version = "${pInfo.versionName} (${PackageInfoCompat.getLongVersionCode(pInfo)})"
+				val variant = BuildConfig.BUILD_TYPE
+				val androidVer = Build.VERSION.RELEASE
+				val model = Build.MODEL
 
-		SwitchPreference(
-			title = { Text(stringResource(R.string.preference_reports_breadcrumbs)) },
-			summary = { Text(stringResource(R.string.preference_reports_breadcrumbs_desc)) },
-			settingsRepository = viewModel.globalRepository,
-			value = { it.errorReportingEnableBreadcrumbs },
-			onValueChange = { errorReportingEnableBreadcrumbs = it },
-			enabledCondition = { it.errorReportingEnable }
-		)
+				val body = "### Description\n(Please describe what happened)\n\n" +
+						   "--- \n" +
+						   "**Device Info**\n" +
+						   "- App version: $version\n" +
+						   "- Build variant: $variant\n" +
+						   "- Android version: $androidVer\n" +
+						   "- Device model: $model"
 
-		if (BuildConfig.DEBUG) {
-			val context = LocalContext.current
-			Preference(
-				title = { Text("Send test report") },
-				summary = { Text("Sends a report to Sentry to test error reporting") },
-				onClick = {
-					Sentry.captureException(Exception("Test report"))
-					Toast.makeText(
-						context,
-						"Report has been sent",
-						Toast.LENGTH_SHORT
-					).show()
-				}
-			)
-		}
+				val uri = Uri.Builder()
+					.scheme("https")
+					.authority("github.com")
+					.path("/rxnzolaf/UntisX/issues/new")
+					.appendQueryParameter("labels", "bug")
+					.appendQueryParameter("template", "bug-report.md")
+					.appendQueryParameter("body", body)
+					.build()
+
+				uriHandler.openUri(uri.toString())
+			}
+		)
 	}
 
 	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

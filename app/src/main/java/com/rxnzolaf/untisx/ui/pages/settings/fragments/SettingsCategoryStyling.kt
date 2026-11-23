@@ -16,6 +16,7 @@ import com.sapuseven.compose.protostore.ui.preferences.PreferenceGroup
 import com.sapuseven.compose.protostore.ui.preferences.SwitchPreference
 import com.sapuseven.untis.R
 import com.sapuseven.untis.data.repository.withDefault
+import com.sapuseven.untis.data.settings.model.AppTheme
 import com.sapuseven.untis.data.settings.model.DarkTheme
 import com.sapuseven.untis.ui.pages.settings.SettingsScreenViewModel
 import com.sapuseven.untis.ui.weekview.EventStyle

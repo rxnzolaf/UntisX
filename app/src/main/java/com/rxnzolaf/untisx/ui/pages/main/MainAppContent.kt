@@ -11,9 +11,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -30,7 +28,6 @@ import com.sapuseven.untis.data.settings.model.UserSettings
 import com.sapuseven.untis.helpers.AppTheme
 import com.sapuseven.untis.helpers.ThemeMode
 import com.sapuseven.untis.ui.common.AppScaffold
-import com.sapuseven.untis.ui.common.ReportsInfoBottomSheet
 import com.sapuseven.untis.ui.navigation.AppNavHost
 import com.sapuseven.untis.ui.navigation.AppNavigator
 import com.sapuseven.untis.ui.navigation.AppRoutes
@@ -54,8 +51,9 @@ fun MainAppContent(
 	}
 	val darkThemeOled by remember { derivedStateOf { settings.darkThemeOled } }
 	val themeColor by remember { derivedStateOf { if (settings.hasThemeColor()) Color(settings.themeColor) else null } }
+	val appTheme = settings.appTheme
 
-	AppTheme(darkTheme, darkThemeOled, themeColor) {
+	AppTheme(darkTheme, darkThemeOled, themeColor, appTheme) {
 		Surface(modifier = Modifier.fillMaxSize()) {
 			when (userState) {
 				is UserRepository.UserState.Loading -> {
@@ -95,16 +93,6 @@ fun MainAppContent(
 							startDestination = AppRoutes.Timetable()
 						)
 					}
-
-					val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-					LaunchedEffect(globalSettingsRepository) {
-						globalSettingsRepository.getSettings().first().let {
-							if (!it.errorReportingSet) {
-								bottomSheetState.show()
-							}
-						}
-					}
-					ReportsInfoBottomSheet(globalSettingsRepository, bottomSheetState)
 				}
 			}
 		}

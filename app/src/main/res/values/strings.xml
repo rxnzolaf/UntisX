@@ -244,6 +244,15 @@
     <string name="preference_dark_theme_oled">Use total black background</string>
     <string name="preference_dark_theme_oled_desc">Useful for OLED-screens</string>
     <string name="preference_dark_theme_on">Always on</string>
+    <string name="preference_app_theme">Theme</string>
+    <string-array name="preference_app_theme">
+        <item>Standard</item>
+        <item>Gaming</item>
+    </string-array>
+    <string-array name="preference_app_theme_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
     <string name="preference_dialog_colors_reset_text">This will reset all colors above to their default values.</string>
     <string name="preference_dialog_colors_reset_title">Reset colors?</string>
     <string name="preference_double_tap_to_exit">Double tap back button to exit</string>
@@ -394,7 +403,9 @@
     <string name="all_dialog_open_settings">Open settings</string>
     <string name="preference_category_reports">Error Reporting</string>
     <string name="preference_reports_info">About error reporting</string>
-    <string name="preference_reports_info_desc">Reports are created automatically upon crashes/errors (via Sentry) or manually via feedback/GitHub issue reports. They contain technical diagnostics (e.g. stack trace, OS &amp; app version, logs). Passwords and credentials are NEVER included. Automatic reporting can be managed here in settings; manual reports can be reviewed before submission.</string>
+    <string name="preference_reports_info_desc">Errors are no longer automatically sent or analyzed.\nBugs can be reported manually in the UntisX GitHub repository.\nA GitHub account is required.\nPlease describe what happened and do not include personal data or passwords.</string>
+    <string name="preference_report_bug">Report a bug</string>
+    <string name="preference_report_bug_desc">Open GitHub to report an issue manually</string>
     <string name="preference_reports_breadcrumbs">Send detailed errors</string>
     <string name="preference_reports_breadcrumbs_desc">Include additional information about what happened before an error occurred.</string>
     <string name="main_dialog_reports_info_2">You can always change these values later in the app settings.</string>
