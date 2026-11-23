@@ -121,4 +121,4 @@ All credit for the original app, its design and its API client goes to them.
 UntisX keeps the license of the original project: the **GNU General Public License v3.0** (GPL-3.0).
 See [LICENSE](LICENSE) for the full license text. As a modified version of the original work, UntisX stays under the GPL-3.0 and the copyright of the original authors remains with them.
 
-Copyright (C) RxNzOlaf
+Copyright (C) RxNzOlaf & SapuSeven and the BetterUntis/UntisX contributors. 
