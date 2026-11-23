@@ -86,10 +86,22 @@ fun ElementPickerDialogFullscreen(
 	LaunchedEffect(selectedType) {
 		items.clear()
 		when (selectedType) {
-			ElementType.CLASS -> masterDataRepository.allClasses.value.associateWith { false }.let { items.putAll(it) }
-			ElementType.TEACHER -> masterDataRepository.allTeachers.value.associateWith { false }.let { items.putAll(it) }
-			ElementType.SUBJECT -> masterDataRepository.allSubjects.value.associateWith { false }.let { items.putAll(it) }
-			ElementType.ROOM -> masterDataRepository.allRooms.value.associateWith { false }.let { items.putAll(it) }
+			ElementType.CLASS -> masterDataRepository.allClasses.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
+			ElementType.TEACHER -> masterDataRepository.allTeachers.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
+			ElementType.SUBJECT -> masterDataRepository.allSubjects.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
+			ElementType.ROOM -> masterDataRepository.allRooms.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
 			else -> {}
 		}
 	}
@@ -237,10 +249,22 @@ fun ElementPickerDialog(
 	LaunchedEffect(selectedType) {
 		items.clear()
 		when (selectedType) {
-			ElementType.CLASS -> masterDataRepository.allClasses.value.associateWith { false }.let { items.putAll(it) }
-			ElementType.TEACHER -> masterDataRepository.allTeachers.value.associateWith { false }.let { items.putAll(it) }
-			ElementType.SUBJECT -> masterDataRepository.allSubjects.value.associateWith { false }.let { items.putAll(it) }
-			ElementType.ROOM -> masterDataRepository.allRooms.value.associateWith { false }.let { items.putAll(it) }
+			ElementType.CLASS -> masterDataRepository.allClasses.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
+			ElementType.TEACHER -> masterDataRepository.allTeachers.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
+			ElementType.SUBJECT -> masterDataRepository.allSubjects.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
+			ElementType.ROOM -> masterDataRepository.allRooms.collect { list ->
+				items.clear()
+				items.putAll(list.associateWith { false })
+			}
 			else -> {}
 		}
 	}

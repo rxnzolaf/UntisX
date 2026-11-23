@@ -249,10 +249,12 @@
     <string-array name="preference_app_theme">
         <item>Standard</item>
         <item>Gaming</item>
+        <item>Legacy (Klassisches Untis)</item>
     </string-array>
     <string-array name="preference_app_theme_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     <string name="settings_recommend_message">Wenn dir UntisX gefällt, empfiehl es deinen Freunden weiter!</string>
     <string name="settings_recommend_hide">Nicht mehr anzeigen</string>
@@ -339,9 +341,25 @@
     <string name="all_datepicker_month_next">Nächster Monat</string>
     <string name="all_datepicker_month_previous">Vorheriger Monat</string>
     <string name="all_reload">Neu laden</string>
+    <string name="widget_next_lesson">Nächste Stunde</string>
+    <string name="widget_today">Heutiger Stundenplan</string>
+    <string name="widget_no_lessons_today">Keine Stunden heute</string>
+    <string name="widget_no_upcoming_lessons">Keine weiteren Stunden heute</string>
+    <string name="widget_not_logged_in">Kein Konto ausgewählt</string>
+    <string name="widget_tap_to_login">Tippen zum Anmelden</string>
+    <string name="widget_error_loading">Stundenplan konnte nicht geladen werden</string>
+    <string name="widget_tap_to_retry">Tippen zum Öffnen der App</string>
+    <string name="widget_now">Jetzt</string>
+    <string name="widget_in_minutes">In %1$d Min.</string>
+    <string name="widget_cancelled">Ausfall</string>
+    <string name="widget_substitution">Vertretung</string>
+    <string name="widget_exam">Test</string>
+    <string name="widget_mode_day">Ein Tag (Heute)</string>
+    <string name="widget_mode_week">Gesamter Stundenplan (Ganze Woche)</string>
     <string name="widget_disclaimer_title">Beta-Funktion</string>
     <string name="widget_disclaimer_text">Die Widget-Funktion befindet sich noch in der Entwicklungsphase und funktioniert unter Umständen nicht auf jedem Gerät.</string>
     <string name="login_demo">Zuerst ausprobieren!</string>
+    <string name="login_custom_timetable">Eigener Stundenplan</string>
     <string name="mainactivitydrawer_profile_edit_hint">Tippe auf ein Profil, um es zu bearbeiten</string>
     <string name="all_lesson_online">Findet online statt</string>
     <string name="all_open_link">Link öffnen</string>
@@ -417,4 +435,10 @@
     <string name="preferences_styling_summary">Farben, Dunkler Modus</string>
     <string name="preferences_timetable_summary">Anzeigeoptionen, Aussehen der Elemente</string>
     <string name="preferences_general_summary">Automatische Stummschaltung, Fehlermeldungen</string>
+    <string name="custom_manage_title">Stundenplandaten verwalten</string>
+    <string name="custom_manage_menu">Daten verwalten</string>
+    <string name="custom_confirm_delete">Möchtest du dieses Element wirklich löschen?</string>
+    <string name="custom_short_name">Kürzel / Kurzname</string>
+    <string name="custom_full_name">Vollständiger Name</string>
+    <string name="custom_color">Farbe</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ColumnInfo
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
@@ -42,6 +43,7 @@ data class User(
 	val userData: UserData,
 	val settings: Settings? = null,
 	val created: Long? = null,
+	@ColumnInfo(defaultValue = "0") val isCustom: Boolean = false,
 ) {
 	companion object {
 		fun buildApiUrl(
@@ -167,6 +169,48 @@ interface UserDao {
 	@Transaction
 	@Query("SELECT * FROM user WHERE id LIKE :userId")
 	fun getByIdWithDataFlow(userId: Long): Flow<UserWithData?>
+
+	@Query("SELECT * FROM customlessonentity WHERE userId = :userId")
+	suspend fun getCustomLessons(userId: Long): List<CustomLessonEntity>
+
+	@Query("SELECT * FROM customlessonentity WHERE userId = :userId")
+	fun getCustomLessonsFlow(userId: Long): Flow<List<CustomLessonEntity>>
+
+	@Upsert
+	suspend fun upsertCustomLesson(lesson: CustomLessonEntity)
+
+	@Delete
+	suspend fun deleteCustomLesson(lesson: CustomLessonEntity)
+
+	// Custom Classes
+	@Query("SELECT * FROM customclassentity WHERE userId = :userId")
+	fun getCustomClassesFlow(userId: Long): Flow<List<CustomClassEntity>>
+	@Upsert suspend fun upsertCustomClass(item: CustomClassEntity)
+	@Delete suspend fun deleteCustomClass(item: CustomClassEntity)
+
+	// Custom Teachers
+	@Query("SELECT * FROM customteacherentity WHERE userId = :userId")
+	fun getCustomTeachersFlow(userId: Long): Flow<List<CustomTeacherEntity>>
+	@Upsert suspend fun upsertCustomTeacher(item: CustomTeacherEntity)
+	@Delete suspend fun deleteCustomTeacher(item: CustomTeacherEntity)
+
+	// Custom Rooms
+	@Query("SELECT * FROM customroomentity WHERE userId = :userId")
+	fun getCustomRoomsFlow(userId: Long): Flow<List<CustomRoomEntity>>
+	@Upsert suspend fun upsertCustomRoom(item: CustomRoomEntity)
+	@Delete suspend fun deleteCustomRoom(item: CustomRoomEntity)
+
+	// Custom Subjects
+	@Query("SELECT * FROM customsubjectentity WHERE userId = :userId")
+	fun getCustomSubjectsFlow(userId: Long): Flow<List<CustomSubjectEntity>>
+	@Upsert suspend fun upsertCustomSubject(item: CustomSubjectEntity)
+	@Delete suspend fun deleteCustomSubject(item: CustomSubjectEntity)
+
+	// Custom TimeGrid
+	@Query("SELECT * FROM customtimegridentity WHERE userId = :userId")
+	fun getCustomTimeGridFlow(userId: Long): Flow<List<CustomTimeGridEntity>>
+	@Upsert suspend fun upsertCustomTimeGrid(item: CustomTimeGridEntity)
+	@Delete suspend fun deleteCustomTimeGrid(item: CustomTimeGridEntity)
 
 	@Insert
 	suspend fun insert(user: User): Long

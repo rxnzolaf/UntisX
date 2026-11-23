@@ -784,9 +784,9 @@ fun <T> WeekViewCompose(
 							hourHeight = hourHeight * scale,
 							hourList = hourList,
 							dividerWidth = dividerWidth,
-							indicatorColor = colorScheme.indicatorColor,
-							pastBackgroundColor = colorScheme.pastBackgroundColor,
-							futureBackgroundColor = colorScheme.futureBackgroundColor,
+							indicatorColor = (if (colorScheme == WeekViewColorScheme.default()) WeekViewColorScheme.default(MaterialTheme.colorScheme) else colorScheme).indicatorColor,
+							pastBackgroundColor = (if (colorScheme == WeekViewColorScheme.default()) WeekViewColorScheme.default(MaterialTheme.colorScheme) else colorScheme).pastBackgroundColor,
+							futureBackgroundColor = (if (colorScheme == WeekViewColorScheme.default()) WeekViewColorScheme.default(MaterialTheme.colorScheme) else colorScheme).futureBackgroundColor,
 							modifier = Modifier
 								.fillMaxHeight()
 								.onGloballyPositioned { contentHeight = it.size.height }
@@ -843,21 +843,19 @@ data class WeekViewColorScheme(
 	val indicatorColor: Color
 ) {
 	companion object {
-		//@Composable
-		//fun default(): WeekViewColorScheme = default(MaterialTheme.colorScheme)
 		fun default(): WeekViewColorScheme {
 			return WeekViewColorScheme(
-				pastBackgroundColor = Color(0x40808080),
+				pastBackgroundColor = Color(0x20808080),
 				futureBackgroundColor = Color.Transparent,
-				indicatorColor = Color.White
+				indicatorColor = Color(0xFFE5483B)
 			)
 		}
 
 		fun default(colorScheme: ColorScheme): WeekViewColorScheme {
 			return WeekViewColorScheme(
-				pastBackgroundColor = Color(0x40808080),
+				pastBackgroundColor = Color(0x20808080),
 				futureBackgroundColor = Color.Transparent,
-				indicatorColor = Color.White
+				indicatorColor = colorScheme.tertiary
 			)
 		}
 	}

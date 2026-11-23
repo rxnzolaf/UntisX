@@ -9,6 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import com.sapuseven.untis.api.model.untis.SchoolInfo
+import com.sapuseven.untis.api.model.untis.Settings
+import com.sapuseven.untis.api.model.untis.UserData
+import com.sapuseven.untis.api.model.untis.enumeration.ElementType
+import com.sapuseven.untis.api.model.untis.masterdata.TimeGrid
+import com.rxnzolaf.untis.data.database.entities.User
+import com.rxnzolaf.untis.data.database.entities.UserDao
+import com.rxnzolaf.untis.data.repository.UserRepository
 import com.rxnzolaf.untis.helpers.SerializationUtils.getJSON
 import com.rxnzolaf.untis.services.CodeScanService
 import com.rxnzolaf.untis.ui.navigation.AppNavigator
@@ -26,12 +33,14 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
 	private val codeScanService: CodeScanService,
 	private val navigator: AppNavigator,
+	private val userDao: UserDao,
+	private val userRepository: UserRepository,
 ) : ActivityViewModel() {
 	var searchMode by mutableStateOf(false)
 		private set
 
 	var shouldShowBackButton = derivedStateOf {
-		searchMode //|| savedStateHandle.get<Boolean>(EXTRA_BOOLEAN_SHOW_BACK_BUTTON) ?: false
+		searchMode
 	}
 
 	private val _schoolSearchText = MutableStateFlow<String>("")
@@ -89,5 +98,31 @@ class LoginViewModel @Inject constructor(
 
 	fun onManualDataInputClick() {
 		navigator.navigate(AppRoutes.LoginDataInput())
+	}
+
+	fun onCustomTimetableClick() {
+		viewModelScope.launch {
+			val user = User(
+				id = 0,
+				profileName = "Eigener Stundenplan",
+				apiHost = "custom",
+				anonymous = true,
+				masterDataTimestamp = 0L,
+				timeGrid = TimeGrid(days = emptyList()),
+				userData = UserData(
+					elemType = ElementType.STUDENT,
+					elemId = 1,
+					displayName = "Eigener Stundenplan",
+					schoolName = "Offline",
+					departmentId = 0
+				),
+				settings = Settings()
+			)
+			val userId = userDao.insert(user)
+			userRepository.switchUser(userId)
+			navigator.navigate(AppRoutes.Timetable()) {
+				popUpTo(AppRoutes.Login) { inclusive = true }
+			}
+		}
 	}
 }

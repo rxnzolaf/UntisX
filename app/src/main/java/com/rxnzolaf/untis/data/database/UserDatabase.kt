@@ -1,5 +1,6 @@
 package com.rxnzolaf.untis.data.database
 
+import android.content.Context
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -24,13 +25,19 @@ import com.rxnzolaf.untis.data.database.entities.TeacherEntity
 import com.rxnzolaf.untis.data.database.entities.TeachingMethodEntity
 import com.rxnzolaf.untis.data.database.entities.User
 import com.rxnzolaf.untis.data.database.entities.UserDao
+import com.rxnzolaf.untis.data.database.entities.CustomLessonEntity
+import com.rxnzolaf.untis.data.database.entities.CustomClassEntity
+import com.rxnzolaf.untis.data.database.entities.CustomTeacherEntity
+import com.rxnzolaf.untis.data.database.entities.CustomRoomEntity
+import com.rxnzolaf.untis.data.database.entities.CustomSubjectEntity
+import com.rxnzolaf.untis.data.database.entities.CustomTimeGridEntity
 import kotlinx.serialization.json.Json
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @Database(
-	version = 12,
+	version = 16,
 	entities = [
 		User::class,
 		AbsenceReasonEntity::class,
@@ -46,17 +53,49 @@ import java.time.format.DateTimeFormatter
 		TeacherEntity::class,
 		TeachingMethodEntity::class,
 		SchoolYearEntity::class,
+		CustomLessonEntity::class,
+		CustomClassEntity::class,
+		CustomTeacherEntity::class,
+		CustomRoomEntity::class,
+		CustomSubjectEntity::class,
+		CustomTimeGridEntity::class,
 	],
 	autoMigrations = [
 		AutoMigration(from = 8, to = 9),
 		AutoMigration(from = 9, to = 10),
 		AutoMigration(from = 10, to = 11, spec = MigrationSpec10to11::class),
-		AutoMigration(from = 11, to = 12, spec = MigrationSpec11to12::class)
+		AutoMigration(from = 11, to = 12, spec = MigrationSpec11to12::class),
+		AutoMigration(from = 12, to = 13),
+		AutoMigration(from = 13, to = 14),
+		AutoMigration(from = 14, to = 15),
+		AutoMigration(from = 15, to = 16)
 	]
 )
 @TypeConverters(UserConverters::class)
 abstract class UserDatabase : RoomDatabase() {
 	abstract fun userDao(): UserDao
+
+	companion object {
+		@Volatile
+		private var INSTANCE: UserDatabase? = null
+
+		fun getInstance(context: Context): UserDatabase {
+			return INSTANCE ?: synchronized(this) {
+				val instance = androidx.room.Room.databaseBuilder(
+					context.applicationContext,
+					UserDatabase::class.java,
+					"userdata.db"
+				)
+				.addMigrations(
+					*MIGRATIONS_USER_LEGACY.toTypedArray(),
+					MIGRATION_USER_7_8,
+				)
+				.build()
+				INSTANCE = instance
+				instance
+			}
+		}
+	}
 }
 
 internal class UserConverters {

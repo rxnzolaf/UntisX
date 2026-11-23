@@ -20,6 +20,8 @@ import com.sapuseven.untis.api.model.untis.enumeration.ElementType
 import com.sapuseven.untis.api.model.untis.timetable.Period
 import com.sapuseven.untis.api.model.untis.timetable.PeriodElement
 import com.rxnzolaf.untis.data.database.entities.User
+import com.rxnzolaf.untis.data.database.entities.UserDao
+import com.sapuseven.untis.api.model.untis.timetable.PeriodText
 import com.rxnzolaf.untis.data.repository.MasterDataRepository
 import com.rxnzolaf.untis.data.repository.TimetableRepository
 import com.rxnzolaf.untis.data.repository.UserRepository
@@ -70,6 +72,7 @@ class TimetableViewModel @Inject constructor(
 	internal val masterDataRepository: MasterDataRepository,
 	internal val clock: Clock,
 	internal val weekLogicService: WeekLogicService,
+	internal val userDao: UserDao,
 	buildConfigFieldsProvider: BuildConfigFieldsProvider,
 	savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -191,6 +194,14 @@ class TimetableViewModel @Inject constructor(
 				}
 			_holidays.emit(holidays)
 		}
+
+		if (currentUser.apiHost == "custom" || currentUser.isCustom) {
+			viewModelScope.launch {
+				userDao.getCustomLessonsFlow(currentUser.id).collect {
+					onPageChange(currentPage)
+				}
+			}
+		}
 	}
 
 	fun switchUser(user: User) {
@@ -242,7 +253,70 @@ class TimetableViewModel @Inject constructor(
 		userSettingsRepository.updateSettings { timetableZoomLevel = zoomLevel }
 	}
 
+	private fun parseLocalTime(timeStr: String): java.time.LocalTime {
+		return runCatching { java.time.LocalTime.parse(timeStr) }
+			.getOrElse {
+				runCatching {
+					val parts = timeStr.split(":")
+					val hour = parts.getOrNull(0)?.toIntOrNull() ?: 8
+					val min = parts.getOrNull(1)?.toIntOrNull() ?: 0
+					java.time.LocalTime.of(hour, min)
+				}.getOrElse { java.time.LocalTime.of(8, 0) }
+			}
+	}
+
 	private suspend fun loadEvents(startDate: LocalDate, fromCache: FromCache): Flow<CachedSourceResult<List<Period>>> {
+		if (currentUser.apiHost == "custom" || currentUser.isCustom) {
+			val allCustomLessons = userDao.getCustomLessons(currentUser.id)
+			val filteredLessons = if (requestedElement != null) {
+				val req = requestedElement!!
+				val reqName = masterDataRepository.getShortName(req)
+				val reqLongName = masterDataRepository.getLongName(req)
+				allCustomLessons.filter { lesson ->
+					when (req.type) {
+						ElementType.CLASS -> lesson.classId == req.id || (lesson.classId == null && lesson.className.equals(reqName, ignoreCase = true))
+						ElementType.TEACHER -> lesson.teacherId == req.id || (lesson.teacherId == null && (lesson.teacher.equals(reqName, ignoreCase = true) || lesson.teacher.equals(reqLongName, ignoreCase = true)))
+						ElementType.ROOM -> lesson.roomId == req.id || (lesson.roomId == null && lesson.room.equals(reqName, ignoreCase = true))
+						ElementType.SUBJECT -> lesson.subjectId == req.id || (lesson.subjectId == null && (lesson.shortName.equals(reqName, ignoreCase = true) || lesson.subjectName.equals(reqName, ignoreCase = true)))
+						else -> true
+					}
+				}
+			} else {
+				allCustomLessons
+			}
+			val weekMonday = startDate.with(java.time.DayOfWeek.MONDAY)
+			val periods = filteredLessons.map { lesson ->
+				val lessonDate = weekMonday.plusDays((lesson.dayOfWeek - 1).coerceIn(0, 6).toLong())
+				val startTime = parseLocalTime(lesson.startTime)
+				val endTime = parseLocalTime(lesson.endTime)
+				val startDateTime = lessonDate.atTime(startTime)
+				val endDateTime = lessonDate.atTime(endTime)
+				Period(
+					id = lesson.id,
+					lessonId = lesson.id,
+					startDateTime = startDateTime,
+					endDateTime = endDateTime,
+					foreColor = "#FFFFFF",
+					backColor = lesson.color.ifEmpty { "#4F6BFF" }.let { if (it.startsWith("#")) it else "#$it" },
+					innerForeColor = "",
+					innerBackColor = "",
+					text = PeriodText(
+						lesson = lesson.shortName.ifEmpty { lesson.subjectName },
+						substitution = lesson.teacher,
+						info = lesson.room,
+						attachments = null
+					),
+					elements = listOf(
+						PeriodElement(ElementType.SUBJECT, lesson.subjectId ?: lesson.id),
+						PeriodElement(ElementType.TEACHER, lesson.teacherId ?: lesson.id),
+						PeriodElement(ElementType.ROOM, lesson.roomId ?: lesson.id)
+					),
+					homeWorks = null
+				)
+			}
+			return kotlinx.coroutines.flow.flowOf(CachedSourceResult(value = periods, fromCache = true, originTimeStamp = null))
+		}
+
 		// Load the requested element (nav args) or the personal element
 		val elementToLoad = requestedElement ?: _personalElement
 			.combine(_needsPersonalTimetable) { element, _ -> element } // Emit a value if _personalElement or _needsPersonalTimetable changes
@@ -288,8 +362,9 @@ class TimetableViewModel @Inject constructor(
 		user: User, range: Pair<Int, Int>?, rangeIndexReset: Boolean
 	): List<WeekViewHour> {
 		val hourList = mutableListOf<WeekViewHour>()
+		val days = user.timeGrid.days.ifEmpty { com.sapuseven.untis.api.model.untis.masterdata.TimeGrid.generateDefault().days }
 
-		user.timeGrid.days.maxByOrNull { it.units.size }?.units?.forEachIndexed { index, hour ->
+		days.maxByOrNull { it.units.size }?.units?.forEachIndexed { index, hour ->
 			// Check if outside configured range
 			if (range?.let { index < it.first - 1 || index >= it.second } == true) return@forEachIndexed
 

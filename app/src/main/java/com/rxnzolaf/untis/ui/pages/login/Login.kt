@@ -158,20 +158,31 @@ fun Login(
 						Text(stringResource(id = R.string.login_search_by_school_name_or_address))
 					}
 				)
-				if (!viewModel.searchMode) Row(
+				if (!viewModel.searchMode) Column(
 					modifier = Modifier
 						.fillMaxWidth()
 						.padding(
 							horizontal = dimensionResource(id = R.dimen.margin_login_input_horizontal),
 							vertical = dimensionResource(id = R.dimen.margin_login_input_vertical)
-						), horizontalArrangement = Arrangement.SpaceBetween
+						)
 				) {
-					TextButton(onClick = { viewModel.onDemoClick() }) {
-						Text(text = stringResource(id = R.string.login_demo))
-					}
+					Row(
+						modifier = Modifier.fillMaxWidth(),
+						horizontalArrangement = Arrangement.SpaceBetween
+					) {
+						TextButton(onClick = { viewModel.onDemoClick() }) {
+							Text(text = stringResource(id = R.string.login_demo))
+						}
 
-					TextButton(onClick = { viewModel.onManualDataInputClick() }) {
-						Text(text = stringResource(id = R.string.login_manual_data_input))
+						TextButton(onClick = { viewModel.onManualDataInputClick() }) {
+							Text(text = stringResource(id = R.string.login_manual_data_input))
+						}
+					}
+					TextButton(
+						onClick = { viewModel.onCustomTimetableClick() },
+						modifier = Modifier.align(Alignment.CenterHorizontally)
+					) {
+						Text(text = stringResource(id = R.string.login_custom_timetable))
 					}
 				}
 			}

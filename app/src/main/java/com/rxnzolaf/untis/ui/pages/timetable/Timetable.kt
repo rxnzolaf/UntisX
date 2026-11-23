@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -93,12 +95,36 @@ fun Timetable(
 		}
 	}
 
+	var customLessonDialog by remember { mutableStateOf(false) }
+	var customManagementDialog by remember { mutableStateOf(false) }
+
+	if (customLessonDialog) {
+		com.rxnzolaf.untis.ui.dialogs.CustomLessonEditorDialog(
+			userId = user.id,
+			userDao = viewModel.userDao,
+			onDismiss = { customLessonDialog = false }
+		)
+	}
+
+	if (customManagementDialog) {
+		com.rxnzolaf.untis.ui.dialogs.CustomManagementDialog(
+			userId = user.id,
+			userDao = viewModel.userDao,
+			onDismiss = { customManagementDialog = false }
+		)
+	}
+
 	TimetableDrawer(
 		drawerState = drawerState,
 		masterDataRepository = viewModel.masterDataRepository,
 		displayedElement = viewModel.requestedElement,
 		onElementPicked = {
 			viewModel.showElement(it)
+		},
+		onManageClick = if (user.apiHost == "custom" || user.isCustom) {
+			{ customManagementDialog = true }
+		} else {
+			null
 		}
 	) {
 		AppScaffold(
@@ -136,6 +162,16 @@ fun Timetable(
 						)
 					}
 				)
+			},
+			floatingActionButton = {
+				if (user.apiHost == "custom") {
+					FloatingActionButton(onClick = { customLessonDialog = true }) {
+						Icon(
+							imageVector = Icons.Outlined.Add,
+							contentDescription = "Stunden bearbeiten"
+						)
+					}
+				}
 			}
 		) { innerPadding ->
 			AnimatedVisibility(ready,

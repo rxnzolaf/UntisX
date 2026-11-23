@@ -248,10 +248,12 @@
     <string-array name="preference_app_theme">
         <item>Standard</item>
         <item>Gaming</item>
+        <item>Legacy (Classic Untis)</item>
     </string-array>
     <string-array name="preference_app_theme_values">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     <string name="preference_dialog_colors_reset_text">This will reset all colors above to their default values.</string>
     <string name="preference_dialog_colors_reset_title">Reset colors?</string>
@@ -367,6 +369,21 @@
     <string name="widget_timetable">Timetable</string>
     <string name="widget_timetable_empty">No timetable available for today</string>
     <string name="widget_timetable_link">Create shortcut to…</string>
+    <string name="widget_next_lesson">Next lesson</string>
+    <string name="widget_today">Today\'s timetable</string>
+    <string name="widget_no_lessons_today">No lessons today</string>
+    <string name="widget_no_upcoming_lessons">No upcoming lessons</string>
+    <string name="widget_not_logged_in">No account selected</string>
+    <string name="widget_tap_to_login">Tap to select an account</string>
+    <string name="widget_error_loading">Failed to load timetable</string>
+    <string name="widget_tap_to_retry">Tap to open app</string>
+    <string name="widget_now">Now</string>
+    <string name="widget_in_minutes">In %1$d min</string>
+    <string name="widget_cancelled">Cancelled</string>
+    <string name="widget_substitution">Substitution</string>
+    <string name="widget_exam">Exam</string>
+    <string name="widget_mode_day">One day (Today)</string>
+    <string name="widget_mode_week">Whole schedule (Full week)</string>
     <string name="all_datepicker_select">Select date</string>
     <string name="all_datepicker_month_next">Next month</string>
     <string name="all_datepicker_month_previous">Previous month</string>
@@ -374,6 +391,7 @@
     <string name="widget_disclaimer_title">Beta feature</string>
     <string name="widget_disclaimer_text">The widget feature is still work-in-progress and may not work correctly on all devices.</string>
     <string name="login_demo">Try it out!</string>
+    <string name="login_custom_timetable">Use without Untis account</string>
     <plurals name="main_time_diff_minutes">
         <item quantity="one">a minute ago</item>
         <item quantity="other">%d minutes ago</item>
@@ -439,4 +457,10 @@
     <string name="preference_reports_enable">Enable automatic error reporting</string>
     <string name="automute_zen_rule_name">School - %1$s</string>
 	<string name="preference_automute_preferences">Auto-mute preferences</string>
+	<string name="custom_manage_title">Manage Custom Timetable Data</string>
+	<string name="custom_manage_menu">Manage Data</string>
+	<string name="custom_confirm_delete">Are you sure you want to delete this item?</string>
+	<string name="custom_short_name">Short Name</string>
+	<string name="custom_full_name">Full Name</string>
+	<string name="custom_color">Color</string>
 </resources>

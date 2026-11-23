@@ -26,6 +26,7 @@ enum AbsencesTimeRange {
 enum AppTheme {
   STANDARD = 0;
   GAMING = 1;
+  LEGACY = 2;
 }
 
 message UserSettings {

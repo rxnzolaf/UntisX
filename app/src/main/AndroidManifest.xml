@@ -37,7 +37,6 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.Material3.DayNight">
 
-
 		<meta-data
 			android:name="com.google.mlkit.vision.DEPENDENCIES"
 			android:value="barcode_ui" />
@@ -65,28 +64,14 @@
 			</intent-filter>
 		</activity>
 
-		<!-- TODO: Implement
-		<activity
-			android:name=".activities.ShortcutConfigureActivity"
-			android:exported="true"
-			android:icon="@mipmap/ic_shortcut"
-			android:label="@string/widget_timetable_link">
-
-			<intent-filter>
-				<category android:name="android.intent.category.DEFAULT" />
-				<action android:name="android.intent.action.CREATE_SHORTCUT" />
-			</intent-filter>
-		</activity>
-
 		<activity
 			android:name=".activities.ElementPickerWidgetConfigureActivity"
 			android:exported="true"
 			android:label="@string/widget_configuration">
-
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 			</intent-filter>
-		</activity>-->
+		</activity>
 
 		<activity
 			android:name=".activities.AutoMuteConfigurationActivity"
@@ -107,34 +92,46 @@
 
 		<receiver android:name=".receivers.AutoMuteReceiver" />
 
-		<!-- TODO: Implement
+		<receiver
+			android:name=".widgets.NextLessonWidgetReceiver"
+			android:exported="true"
+			android:label="@string/widget_next_lesson">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/widget_next_lesson_info" />
+		</receiver>
+
+		<receiver
+			android:name=".widgets.TodayWidgetReceiver"
+			android:exported="true"
+			android:label="@string/widget_today">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data
+				android:name="android.appwidget.provider"
+				android:resource="@xml/widget_today_info" />
+		</receiver>
+
 		<receiver
 			android:name=".widgets.TimetableWidgetReceiver"
 			android:exported="true"
 			android:label="@string/widget_timetable">
-
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
 			</intent-filter>
-
 			<meta-data
 				android:name="android.appwidget.provider"
 				android:resource="@xml/widget_info" />
 		</receiver>
 
-		<receiver
-			android:name=".widgets.MessagesWidgetReceiver"
-			android:exported="true"
-			android:label="@string/widget_daily_messages">
-
-			<intent-filter>
-				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-			</intent-filter>
-
-			<meta-data
-				android:name="android.appwidget.provider"
-				android:resource="@xml/widget_info" />
-		</receiver>-->
+		<service
+			android:name=".widgets.WidgetRemoteViewsService"
+			android:permission="android.permission.BIND_REMOTEVIEWS"
+			android:exported="false" />
 
 		<provider
 			android:name="androidx.startup.InitializationProvider"

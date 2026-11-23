@@ -59,6 +59,45 @@ val GamingColorScheme = ColorScheme(
 	surfaceContainerLowest = Color(0xFF0B0B1A)
 )
 
+val LegacyColorScheme = ColorScheme(
+	primary = Color(0xFF4AA3DF),
+	onPrimary = Color(0xFFFFFFFF),
+	primaryContainer = Color(0xFFE8F4FC),
+	onPrimaryContainer = Color(0xFF1B4965),
+	inversePrimary = Color(0xFF4AA3DF),
+	secondary = Color(0xFF4AA3DF),
+	onSecondary = Color(0xFFFFFFFF),
+	secondaryContainer = Color(0xFFF5F6F7),
+	onSecondaryContainer = Color(0xFF2B2F33),
+	tertiary = Color(0xFFE5483B),
+	onTertiary = Color(0xFFFFFFFF),
+	tertiaryContainer = Color(0xFFFFEBEA),
+	onTertiaryContainer = Color(0xFF7A150D),
+	background = Color(0xFFFFFFFF),
+	onBackground = Color(0xFF2B2F33),
+	surface = Color(0xFFF5F6F7),
+	onSurface = Color(0xFF2B2F33),
+	surfaceVariant = Color(0xFFF5F6F7),
+	onSurfaceVariant = Color(0xFF8A9097),
+	surfaceTint = Color(0xFF4AA3DF),
+	inverseSurface = Color(0xFF2B2F33),
+	inverseOnSurface = Color(0xFFFFFFFF),
+	error = Color(0xFFE5483B),
+	onError = Color(0xFFFFFFFF),
+	errorContainer = Color(0xFFFFEBEA),
+	onErrorContainer = Color(0xFF7A150D),
+	outline = Color(0xFFE3E5E8),
+	outlineVariant = Color(0xFFE3E5E8),
+	scrim = Color(0xFF000000),
+	surfaceBright = Color(0xFFFFFFFF),
+	surfaceDim = Color(0xFFF0F2F5),
+	surfaceContainer = Color(0xFFF5F6F7),
+	surfaceContainerHigh = Color(0xFFEBECEE),
+	surfaceContainerHighest = Color(0xFFE3E5E8),
+	surfaceContainerLow = Color(0xFFFAFAFA),
+	surfaceContainerLowest = Color(0xFFFFFFFF)
+)
+
 private fun setSystemUiColor(
 	systemUiController: SystemUiController,
 	color: Color = Color.Transparent,
@@ -85,16 +124,22 @@ fun AppTheme(
 	content: @Composable () -> Unit
 ) {
 	val isGaming = appTheme == SettingsAppTheme.GAMING
+	val isLegacy = appTheme == SettingsAppTheme.LEGACY
 	val defaultThemeColor = materialColors[0]
-	val isDarkTheme = if (isGaming) true else when (darkTheme) {
-		ThemeMode.AlwaysLight -> false
-		ThemeMode.AlwaysDark -> true
-		ThemeMode.FollowSystem -> isSystemInDarkTheme()
+	val isDarkTheme = when {
+		isGaming -> true
+		isLegacy -> false
+		else -> when (darkTheme) {
+			ThemeMode.AlwaysLight -> false
+			ThemeMode.AlwaysDark -> true
+			ThemeMode.FollowSystem -> isSystemInDarkTheme()
+		}
 	}
-	Log.d("AppTheme", "Theme mode: $darkTheme, isDarkTheme: $isDarkTheme, isGaming: $isGaming")
+	Log.d("AppTheme", "Theme mode: $darkTheme, isDarkTheme: $isDarkTheme, isGaming: $isGaming, isLegacy: $isLegacy")
 
 	val colorScheme = when {
 		isGaming -> GamingColorScheme
+		isLegacy -> LegacyColorScheme
 		themeColor == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
 			val context = LocalContext.current
 			if (isDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -103,7 +148,7 @@ fun AppTheme(
 		isDarkTheme -> Scheme.dark((themeColor ?: defaultThemeColor).toArgb()).toColorScheme()
 		else -> Scheme.light((themeColor ?: defaultThemeColor).toArgb()).toColorScheme()
 	}.run {
-		if (isDarkTheme && darkThemeOled && !isGaming)
+		if (isDarkTheme && darkThemeOled && !isGaming && !isLegacy)
 			copy(background = Color.Black, surface = Color.Black)
 		else
 			this

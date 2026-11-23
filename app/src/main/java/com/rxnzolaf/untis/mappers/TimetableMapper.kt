@@ -1,6 +1,7 @@
 package com.rxnzolaf.untis.mappers
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.core.graphics.toColorInt
@@ -109,6 +110,16 @@ class TimetableMapper @Inject constructor(
 		}
 	}
 
+	private val legacyFallbackPalette = listOf(
+		Color(0xFFF29A1F), // Orange
+		Color(0xFF2DC9A0), // Teal-green
+		Color(0xFF1FA9E6), // Blue
+		Color(0xFFFFB933), // Yellow
+		Color(0xFFA8E6A0), // Light green
+		Color(0xFFD9A3F0), // Purple
+		Color(0xFFD9D9D9)  // Light grey
+	)
+
 	private fun getColorScheme(
 		userSettings: UserSettings,
 		periodItem: PeriodItem
@@ -118,6 +129,56 @@ class TimetableMapper @Inject constructor(
 		val isExam = periodItem.isExam()
 		val isCancelled = periodItem.isCancelled()
 		val isIrregular = periodItem.isIrregular()
+
+		if (appTheme == com.rxnzolaf.untis.data.settings.model.AppTheme.LEGACY) {
+			val rawColor = (subjectEntity?.backColor ?: periodItem.originalPeriod.backColor).trim()
+			val isDefaultOrInvalid = rawColor.isEmpty() || rawColor == "0" || rawColor == "000000" ||
+				rawColor == "#000000" || rawColor.equals("FFFFFF", ignoreCase = true) || rawColor.equals("#FFFFFF", ignoreCase = true)
+
+			val color = if (!isDefaultOrInvalid) {
+				try {
+					val hex = if (rawColor.startsWith("#")) rawColor else "#$rawColor"
+					Color(hex.toColorInt())
+				} catch (_: Throwable) {
+					val subjectName = periodItem.getShort(ElementType.SUBJECT).toString()
+					val paletteIndex = kotlin.math.abs(subjectName.hashCode() + periodItem.originalPeriod.id.toInt()) % legacyFallbackPalette.size
+					legacyFallbackPalette[paletteIndex]
+				}
+			} else {
+				val subjectName = periodItem.getShort(ElementType.SUBJECT).toString()
+				val paletteIndex = kotlin.math.abs(subjectName.hashCode() + periodItem.originalPeriod.id.toInt()) % legacyFallbackPalette.size
+				legacyFallbackPalette[paletteIndex]
+			}
+
+			val legacyBadge = when {
+				isCancelled -> "Entfall"
+				isExam -> "Test"
+				isIrregular -> "Sub"
+				else -> null
+			}
+
+			val legacyBadgeBg = when {
+				isCancelled -> Color(0xFFE5483B)
+				isExam -> Color(0xFFE5483B)
+				isIrregular -> Color(0xFF4AA3DF)
+				else -> null
+			}
+
+			val legacyTextColor = if (
+				androidx.core.graphics.ColorUtils.calculateContrast(Color.White.toArgb(), color.toArgb()) >= 4.5
+			) Color.White else Color(0xFF2B2F33)
+
+			return EventStyle.Custom(
+				color = if (isCancelled) color.copy(alpha = 0.55f) else color,
+				textStyle = TextStyle(
+					color = legacyTextColor,
+					textDecoration = if (isCancelled) TextDecoration.LineThrough else TextDecoration.None
+				),
+				border = null,
+				badge = legacyBadge,
+				badgeBg = legacyBadgeBg
+			)
+		}
 
 		val border = when {
 			isCancelled -> Color(0xFFFF4D6D) // neon red
@@ -203,8 +264,9 @@ class TimetableMapper @Inject constructor(
 	}
 
 	private fun List<Period>.mergePeriods(days: List<Day>): List<Period> {
+		val effectiveDays = days.ifEmpty { com.sapuseven.untis.api.model.untis.masterdata.TimeGrid.generateDefault().days }
 		val itemGrid: Array<Array<MutableList<Period>>> =
-			Array(days.size) { Array(days.maxByOrNull { it.units.size }!!.units.size) { mutableListOf() } }
+			Array(effectiveDays.size) { Array(effectiveDays.maxByOrNull { it.units.size }!!.units.size) { mutableListOf() } }
 		val leftover: MutableList<Period> = mutableListOf()
 
 		// TODO: Check if the day from the Untis API is always an english string
@@ -218,14 +280,14 @@ class TimetableMapper @Inject constructor(
 
 			val day = endDateTime.dayOfWeek.value - firstDayOfWeek.value
 
-			if (day < 0 || day >= days.size) return@forEach
+			if (day < 0 || day >= effectiveDays.size) return@forEach
 
-			val thisUnitStartIndex = days[day].units.indexOfFirst {
+			val thisUnitStartIndex = effectiveDays[day].units.indexOfFirst {
 				it.startTime.truncatedTo(ChronoUnit.MINUTES)
 					.equals(startDateTime.toLocalTime().truncatedTo(ChronoUnit.MINUTES))
 			}
 
-			val thisUnitEndIndex = days[day].units.indexOfFirst {
+			val thisUnitEndIndex = effectiveDays[day].units.indexOfFirst {
 				it.endTime.truncatedTo(ChronoUnit.MINUTES)
 					.equals(endDateTime.toLocalTime().truncatedTo(ChronoUnit.MINUTES))
 			}

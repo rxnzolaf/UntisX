@@ -57,6 +57,7 @@ fun TimetableDrawer(
 	masterDataRepository: MasterDataRepository,
 	displayedElement: PeriodElement? = null,
 	onElementPicked: (PeriodElement?) -> Unit,
+	onManageClick: (() -> Unit)? = null,
 	content: @Composable () -> Unit
 ) {
 	val scope = rememberCoroutineScope()
@@ -212,6 +213,26 @@ fun TimetableDrawer(
 						viewModel.onNavigationItemClick(item)
 					}
 				)
+
+				onManageClick?.let { onManage ->
+					NavigationDrawerItem(
+						icon = {
+							Icon(
+								painterResource(id = R.drawable.all_settings),
+								contentDescription = null
+							)
+						},
+						label = { Text(stringResource(id = R.string.custom_manage_menu)) },
+						selected = false,
+						onClick = {
+							scope.launch {
+								drawerState.close()
+								onManage()
+							}
+						},
+						modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
+					)
+				}
 			}
 		},
 		content = content

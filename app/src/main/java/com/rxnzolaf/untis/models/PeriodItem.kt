@@ -56,21 +56,47 @@ class PeriodItem(
 			else -> hashSetOf()
 		}
 
-	fun getShort(type: ElementType, list: HashSet<PeriodElement> = getListFor(type)) =
-		list.joinToString(ELEMENT_NAME_SEPARATOR) {
+	fun getShort(type: ElementType, list: HashSet<PeriodElement> = getListFor(type)): String {
+		val nameFromRepo = list.joinToString(ELEMENT_NAME_SEPARATOR) {
 			masterDataRepository?.getShortName(it.id, type) ?: ELEMENT_NAME_UNKNOWN
 		}
+		if (nameFromRepo.isBlank() || nameFromRepo == ELEMENT_NAME_UNKNOWN || nameFromRepo.contains(ELEMENT_NAME_UNKNOWN)) {
+			val fallback = when (type) {
+				ElementType.SUBJECT -> originalPeriod.text.lesson
+				ElementType.TEACHER -> originalPeriod.text.substitution
+				ElementType.ROOM -> originalPeriod.text.info
+				else -> ""
+			}
+			if (fallback.isNotBlank()) return fallback
+		}
+		return nameFromRepo
+	}
 
-	fun getLong(type: ElementType, list: HashSet<PeriodElement> = getListFor(type)) =
-		list.joinToString(ELEMENT_NAME_SEPARATOR) {
+	fun getLong(type: ElementType, list: HashSet<PeriodElement> = getListFor(type)): String {
+		val nameFromRepo = list.joinToString(ELEMENT_NAME_SEPARATOR) {
 			masterDataRepository?.getLongName(it.id, type) ?: ELEMENT_NAME_UNKNOWN
 		}
+		if (nameFromRepo.isBlank() || nameFromRepo == ELEMENT_NAME_UNKNOWN || nameFromRepo.contains(ELEMENT_NAME_UNKNOWN)) {
+			val fallback = when (type) {
+				ElementType.SUBJECT -> originalPeriod.text.lesson
+				ElementType.TEACHER -> originalPeriod.text.substitution
+				ElementType.ROOM -> originalPeriod.text.info
+				else -> ""
+			}
+			if (fallback.isNotBlank()) return fallback
+		}
+		return nameFromRepo
+	}
 
 	fun getShortAnnotated(
 		type: ElementType,
 		list: HashSet<PeriodElement> = getListFor(type),
 		includeOrgIds: Boolean = true
 	): AnnotatedString {
+		val shortName = getShort(type, list)
+		if (shortName != ELEMENT_NAME_UNKNOWN) {
+			return AnnotatedString(shortName)
+		}
 		return buildAnnotatedString {
 			list.forEach {
 				if (length > 0) append(ELEMENT_NAME_SEPARATOR)

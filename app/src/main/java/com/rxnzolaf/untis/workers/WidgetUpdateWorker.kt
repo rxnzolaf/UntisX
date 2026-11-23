@@ -1,16 +1,24 @@
 package com.rxnzolaf.untis.workers
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import androidx.hilt.work.HiltWorker
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.rxnzolaf.untis.data.repository.TimetableRepository
+import com.rxnzolaf.untis.widgets.NextLessonWidgetReceiver
+import com.rxnzolaf.untis.widgets.TimetableWidgetReceiver
+import com.rxnzolaf.untis.widgets.TodayWidgetReceiver
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import java.util.concurrent.TimeUnit
 
 /**
- * This worker loads the data for widgets.
+ * This worker updates all home screen widgets.
  */
 @HiltWorker
 class WidgetUpdateWorker @AssistedInject constructor(
@@ -20,8 +28,8 @@ class WidgetUpdateWorker @AssistedInject constructor(
 ) :
 	TimetableDependantWorker(context, params, timetableRepository) {
 	companion object {
-		private const val LOG_TAG = "WidgetUpdate"
 		private const val TAG_WIDGET_UPDATE_WORK = "WidgetUpdateWork"
+		private const val PERIODIC_WIDGET_UPDATE_WORK = "PeriodicWidgetUpdateWork"
 
 		fun enqueue(workManager: WorkManager) {
 			workManager.enqueue(
@@ -29,102 +37,39 @@ class WidgetUpdateWorker @AssistedInject constructor(
 					.addTag(TAG_WIDGET_UPDATE_WORK)
 					.build()
 			)
+
+			val periodicRequest = PeriodicWorkRequestBuilder<WidgetUpdateWorker>(30, TimeUnit.MINUTES)
+				.addTag(PERIODIC_WIDGET_UPDATE_WORK)
+				.build()
+
+			workManager.enqueueUniquePeriodicWork(
+				PERIODIC_WIDGET_UPDATE_WORK,
+				ExistingPeriodicWorkPolicy.KEEP,
+				periodicRequest
+			)
 		}
 	}
 
 	override suspend fun doWork(): Result {
-		/*val userDatabase = UserDatabase.getInstance(applicationContext)
+		val appWidgetManager = AppWidgetManager.getInstance(applicationContext)
 
-		val timeFormatter = DateTimeFormat.forPattern("HH:mm")
+		val nextLessonComponent = ComponentName(applicationContext, NextLessonWidgetReceiver::class.java)
+		val nextLessonIds = appWidgetManager.getAppWidgetIds(nextLessonComponent)
+		for (id in nextLessonIds) {
+			NextLessonWidgetReceiver.updateWidget(applicationContext, id, appWidgetManager)
+		}
 
-		GlanceAppWidgetManager(applicationContext).getGlanceIds(TimetableWidget::class.java)
-			.forEach { glanceId ->
-				val prefs =
-					TimetableWidget().getAppWidgetState<Preferences>(applicationContext, glanceId)
+		val todayComponent = ComponentName(applicationContext, TodayWidgetReceiver::class.java)
+		val todayIds = appWidgetManager.getAppWidgetIds(todayComponent)
+		for (id in todayIds) {
+			TodayWidgetReceiver.updateWidget(applicationContext, id, appWidgetManager)
+		}
 
-				val userId = prefs[longPreferencesKey(PREFERENCE_KEY_LONG_USER)] ?: -1
-				val id = prefs[intPreferencesKey(PREFERENCE_KEY_INT_ELEMENT_ID)] ?: -1
-				val type = prefs[stringPreferencesKey(PREFERENCE_KEY_STRING_ELEMENT_TYPE)] ?: ""
-
-				val user = userDatabase.userDao().getById(userId)
-
-				/*user?.let {
-					try {
-						val timetable = loadTimetable(
-							user,
-							TimetableDatabaseInterface(userDatabase, user.id),
-							id to type
-						)
-
-						val timetableItems =
-							timetable.items.sortedBy { it.startDateTime.toString() }
-
-						val timetableListItems = timetableItems
-							.mapIndexed { index, item ->
-								val sameTimeAsPrevious =
-									timetableItems.getOrNull(index - 1)?.startDateTime == item.startDateTime
-								val sameTimeAsNext =
-									timetableItems.getOrNull(index + 1)?.startDateTime == item.startDateTime
-
-								WidgetListItemModel(
-									headlineContent = item.periodData.getLong(
-										ElementType.SUBJECT
-									),
-									supportingContent = arrayOf(item.top, item.bottom)
-										.filter { s -> s.isNotBlank() }
-										.joinToString(" - "),
-									leadingContent = { surfaceColor, textColor ->
-										Column(
-											horizontalAlignment = Alignment.CenterHorizontally,
-											modifier = GlanceModifier
-												.fillMaxHeight()
-										) {
-											Box(
-												modifier = GlanceModifier
-													.width(if (sameTimeAsPrevious) 4.dp else 0.dp)
-													.defaultWeight()
-													.background(textColor)
-											) {}
-											Box(
-												modifier = GlanceModifier
-													.width(if (sameTimeAsNext) 4.dp else 0.dp)
-													.defaultWeight()
-													.background(textColor)
-											) {}
-										}
-
-										Column(
-											modifier = GlanceModifier
-												.wrapContentSize()
-												.background(surfaceColor)
-										) {
-											Text(
-												item.startDateTime.toString(timeFormatter),
-												style = MaterialTheme.typography.bodySmall.toGlanceTextStyle(
-													textColor
-												)
-											)
-											Text(
-												item.endDateTime.toString(timeFormatter),
-												style = MaterialTheme.typography.bodySmall.toGlanceTextStyle(
-													textColor
-												)
-											)
-										}
-									}
-								)
-							}
-
-						TimetableWidget().run {
-							setData(timetableListItems)
-							update(applicationContext, glanceId)
-						}
-					} catch (e: Exception) {
-						//setError(e) TODO
-						Log.e(LOG_TAG, "Timetable loading error", e)
-					}
-				}*/
-			}*/
+		val timetableComponent = ComponentName(applicationContext, TimetableWidgetReceiver::class.java)
+		val timetableIds = appWidgetManager.getAppWidgetIds(timetableComponent)
+		for (id in timetableIds) {
+			TimetableWidgetReceiver.updateWidget(applicationContext, id, appWidgetManager)
+		}
 
 		return Result.success()
 	}

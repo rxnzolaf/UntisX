@@ -3,7 +3,7 @@
 # UntisX
 An alternative mobile client for the Untis timetable system.
 
-**Current version:** 6.0.0-beta01 (beta release)
+**Current version:** 6.0.0-beta02 (beta release)
 
 UntisX was originally forked from [BetterUntis](https://github.com/SapuSeven/BetterUntis) and is maintained independently by [rxnzolaf](https://github.com/rxnzolaf).
 
@@ -15,14 +15,14 @@ Screenshots coming soon.
 
 ## Top features
 - Modern and intuitive user interface
-- Selectable app themes: "Standard" and "Gaming" (blue-purple gaming design), switchable under Settings > Design
+- Selectable app themes: "Standard", "Gaming" (blue-purple gaming design), and experimental "Untis Legacy", switchable under Settings > Design
 - Simple and straight-forward login process
 - Fast timetable loading with smart caching
-- Multiple separate accounts/profiles
+- Multiple separate accounts/profiles (including offline CUSTOM profiles with full week view grid and timetable management)
 - RoomFinder to quickly find free rooms
 - Info Center for viewing events, contact hours and own absences
 - Class management features for teachers (Absence checking, lesson topic editing, ...)
-- Break notifications and auto-mute during lessons
+- Break notifications, auto-mute during lessons, and initial widget support
 - Privacy-focused design with manual bug reporting via GitHub issues (no automatic error tracking or crash reporting)
 
 ## Available languages
@@ -55,6 +55,14 @@ to potentially reuse them in other projects.
 
 ### UntisX
 
+#### v6.0.0-beta02
+- Added full support for CUSTOM (offline) profiles with complete week view grid and lesson rendering.
+- Added offline management screens for custom Classes, Teachers, Rooms, and Subjects (with create, edit, and delete support).
+- Added dynamic timetable element selection lists and filtering for custom profiles (Class, Teacher, Room, Subject, and Personal views).
+- Added integrated pickers with "+ Add new..." quick creation options in the custom lesson editor.
+- Added experimental widget support.
+- Added experimental Untis legacy theme support.
+
 #### v6.0.0-beta01
 UntisX picks up at BetterUntis 5.x and continues development independently under maintainer rxnzolaf.
 Key changes in 6.0.0-beta01 include:
@@ -67,7 +75,7 @@ Key changes in 6.0.0-beta01 include:
 
 ### Branch: master
 **master** is the only permanent branch of this repository and always contains the latest state of the project.
-Release tags (for example `6.0.0-beta01`) are created from **master**, which is also the base for all pull requests.
+Release tags (for example `6.0.0-beta02`) are created from **master**, which is also the base for all pull requests.
 
 ### Other branches
 Bigger features and experiments that require multiple commits should branch off **master** and merge back into it.
@@ -87,7 +95,7 @@ If you encounter a bug or issue in UntisX, please submit a report manually via [
 
 When opening an issue, please include:
 - A description of what happened and steps to reproduce the issue.
-- Your UntisX version (e.g., `6.0.0-beta01`) and Android version.
+- Your UntisX version (e.g., `6.0.0-beta02`) and Android version.
 - Device model.
 
 **Important:** Do not include personal data, credentials, or passwords in your bug report.
@@ -109,6 +117,10 @@ You can also open a pull request with your changes directly against **master**.
 
 Anything that requires you to perform code changes should be done on a branch based on **master**, and submitted as a pull request against **master**.
 Keep pull requests focused on a single feature or fix, and describe what it changes and why.
+
+## Disclaimer
+
+UntisX ist ein inoffizielles Open-Source-Projekt (basierend auf BetterUntis) und steht in keiner Verbindung zur Untis GmbH. ‚Untis‘ und ‚WebUntis‘ sind eingetragene Marken der Untis GmbH.
 
 ## Credits & License
 
