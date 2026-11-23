@@ -23,10 +23,17 @@
 -dontnote kotlinx.serialization.SerializationKt
 -keepattributes *Annotation*, InnerClasses
 -keep,includedescriptorclasses class com.sapuseven.untis.**$$serializer { *; }
+-keep,includedescriptorclasses class com.rxnzolaf.untis.**$$serializer { *; }
 -keepclassmembers class com.sapuseven.untis.** {
     *** Companion;
 }
+-keepclassmembers class com.rxnzolaf.untis.** {
+    *** Companion;
+}
 -keepclasseswithmembers class com.sapuseven.untis.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+-keepclasseswithmembers class com.rxnzolaf.untis.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
 -keepclassmembernames class kotlinx.** {

@@ -3,9 +3,11 @@
 # UntisX
 An alternative mobile client for the Untis timetable system.
 
-UntisX was originally forked from [BetterUntis](https://github.com/SapuSeven/BetterUntis) and is developed independently from there.
+**Current version:** 6.0.0-beta01 (beta release)
 
-<a href="https://github.com/rxnzolaf/UntisX/actions/workflows/build.yml"><img src="https://github.com/rxnzolaf/UntisX/actions/workflows/build.yml/badge.svg" alt="Build"></a>
+UntisX was originally forked from [BetterUntis](https://github.com/SapuSeven/BetterUntis) and is maintained independently by [rxnzolaf](https://github.com/rxnzolaf).
+
+<!-- <a href="https://github.com/rxnzolaf/UntisX/actions/workflows/build.yml"><img src="https://github.com/rxnzolaf/UntisX/actions/workflows/build.yml/badge.svg" alt="Build"></a> (Can be re-enabled when automatic workflow runs are restored) -->
 
 ## Screenshots
 
@@ -13,6 +15,7 @@ Screenshots coming soon.
 
 ## Top features
 - Modern and intuitive user interface
+- Selectable app themes: "Standard" and "Gaming" (blue-purple gaming design), switchable under Settings > Design
 - Simple and straight-forward login process
 - Fast timetable loading with smart caching
 - Multiple separate accounts/profiles
@@ -20,6 +23,7 @@ Screenshots coming soon.
 - Info Center for viewing events, contact hours and own absences
 - Class management features for teachers (Absence checking, lesson topic editing, ...)
 - Break notifications and auto-mute during lessons
+- Privacy-focused design with manual bug reporting via GitHub issues (no automatic error tracking or crash reporting)
 
 ## Available languages
 
@@ -50,24 +54,43 @@ Additionally, several components (like the Untis API Client and the Compose Pref
 to potentially reuse them in other projects.
 
 ### UntisX
-UntisX picks up at BetterUntis 5.x and continues development independently.
-The fork keeps the modular architecture of the upstream project – the app module together with the reusable `api` and `material-color-utils` modules – and the Kotlin/Jetpack Compose codebase, while changes and releases are made on their own schedule.
+
+#### v6.0.0-beta01
+UntisX picks up at BetterUntis 5.x and continues development independently under maintainer rxnzolaf.
+Key changes in 6.0.0-beta01 include:
+- Renamed project to UntisX with new application ID (`com.rxnzolaf.untis`).
+- Introduced selectable themes with a new "Gaming" (blue-purple gaming design) theme alongside the "Standard" theme.
+- Removed automatic error tracking/crash reporting in favor of transparent, manual GitHub bug reports.
+- Retained the modular architecture (`app` module, `api`, `material-color-utils`) and Kotlin/Jetpack Compose codebase.
 
 ## Project Git Structure
 
 ### Branch: master
 **master** is the only permanent branch of this repository and always contains the latest state of the project.
-Release tags (for example `5.0.0`) are created from **master**, which is also the base for all pull requests.
+Release tags (for example `6.0.0-beta01`) are created from **master**, which is also the base for all pull requests.
 
 ### Other branches
 Bigger features and experiments that require multiple commits should branch off **master** and merge back into it.
 These branches have a limited lifetime and should be deleted after the merge if they are no longer needed.
 
 ### Builds and releases
-The repository uses GitHub Actions:
+The application ID is `com.rxnzolaf.untis` (or `com.rxnzolaf.untis.debug` for debug builds).
 
-- `build.yml` builds the debug and release APKs for both the **Gms** and **Foss** flavors on every push and pull request.
-- `deploy.yml` runs when a version tag is pushed and creates the corresponding GitHub release with the release APK.
+The repository uses GitHub Actions for CI/CD:
+
+- `build.yml` builds the debug and release APKs for both the **Gms** and **Foss** product flavors (`gmsDebug`, `gmsRelease`, `fossDebug`, `fossRelease`). Automatic triggers are currently disabled, so workflow runs are triggered manually (`workflow_dispatch`).
+- `deploy.yml` creates release builds (APKs and AAB bundles), publishes GitHub releases, deploys to Google Play Store tracks, and prepares F-Droid releases when manually triggered.
+
+## Reporting bugs
+
+If you encounter a bug or issue in UntisX, please submit a report manually via [GitHub Issues](https://github.com/rxnzolaf/UntisX/issues/new).
+
+When opening an issue, please include:
+- A description of what happened and steps to reproduce the issue.
+- Your UntisX version (e.g., `6.0.0-beta01`) and Android version.
+- Device model.
+
+**Important:** Do not include personal data, credentials, or passwords in your bug report.
 
 ## Contributing
 
@@ -89,7 +112,7 @@ Keep pull requests focused on a single feature or fix, and describe what it chan
 
 ## Credits & License
 
-UntisX is based on **BetterUntis** by [SapuSeven](https://github.com/SapuSeven) and builds on the work of its contributors.
+UntisX is based on **BetterUntis** by [SapuSeven](https://github.com/SapuSeven) and is maintained by [rxnzolaf](https://github.com/rxnzolaf). It builds on the work of the original project and its contributors.
 All credit for the original app, its design and its API client goes to them.
 
 - Original project: [SapuSeven/BetterUntis](https://github.com/SapuSeven/BetterUntis)
@@ -98,4 +121,4 @@ All credit for the original app, its design and its API client goes to them.
 UntisX keeps the license of the original project: the **GNU General Public License v3.0** (GPL-3.0).
 See [LICENSE](LICENSE) for the full license text. As a modified version of the original work, UntisX stays under the GPL-3.0 and the copyright of the original authors remains with them.
 
-Copyright (C) SapuSeven and the BetterUntis/UntisX contributors.
+Copyright (C) RxNzOlaf

@@ -27,20 +27,20 @@ val gmsImplementation: Configuration by configurations.creating
 
 android {
 	compileSdk = 35
-	namespace = "com.sapuseven.untis"
+	namespace = "com.rxnzolaf.untis"
 
 	androidResources {
 		generateLocaleConfig = true
 	}
 
 	defaultConfig {
-		applicationId = "com.sapuseven.untis"
+		applicationId = "com.rxnzolaf.untis"
 		minSdk = 21
 		targetSdk = 35
 		versionCode = generateVersionCode()
-		versionName = "5.0.0-beta04"
+		versionName = "6.0.0-beta01"
 		vectorDrawables.useSupportLibrary = true
-		testInstrumentationRunner = "com.sapuseven.untis.HiltTestRunner"
+		testInstrumentationRunner = "com.rxnzolaf.untis.HiltTestRunner"
 
 
 
