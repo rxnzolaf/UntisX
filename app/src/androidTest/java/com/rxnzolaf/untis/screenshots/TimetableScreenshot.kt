@@ -80,13 +80,9 @@ class TimetableScreenshot {
 		darkTheme: Boolean = false,
 		themeColorName: String
 	) {
-		var viewModel: TimetableViewModel
 		rule.activity.setContent {
 			val colorScheme = generateColorScheme(rule.activity, false, themeColor, darkTheme, false)
-			val typography = MaterialTheme.typography
-			viewModel = hiltViewModel<TimetableViewModel, TimetableViewModel.Factory>(
-				creationCallback = { factory -> factory.create(colorScheme, typography) }
-			)
+			val viewModel: TimetableViewModel = hiltViewModel()
 
 			MaterialTheme(
 				colorScheme = colorScheme
@@ -96,9 +92,6 @@ class TimetableScreenshot {
 				}
 			}
 		}
-		rule.waitForIdle()
-		rule.onNodeWithText("Save").performClick()
-		rule.waitUntilDoesNotExist(hasTestTag("loading"), timeoutMillis = 10_000)
 		rule.waitForIdle()
 		rule.takeScreenshot("timetable-${themeColorName}.png")
 	}

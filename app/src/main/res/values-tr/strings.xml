@@ -239,10 +239,7 @@
     <string name="errors_button_report">Hepsini bildir</string>
     <string name="loading">Yükleniyor</string>
     <string name="loading_failed">Yüklenme başarısız</string>
-    <string name="widget_configuration">Widget Ayarları</string>
     <string name="widget_timetable_empty">Bugün için ders programı bulunamadı</string>
-    <string name="widget_daily_messages">Günlük Bildirimler</string>
-    <string name="widget_select_profile">Lütfen widget için bir profil seç</string>
     <plurals name="main_time_diff_hours">
         <item quantity="one">Bir saat önce</item>
         <item quantity="other">%d saat önce</item>

@@ -134,7 +134,7 @@
     <string name="preference_dialog_colors_reset_title">¿Quiere restablecer los colores?</string>
     <string name="preference_category_timetable_range">Intervalo del horario</string>
     <string name="preference_category_timetable_lesson_text">Texto de la lección</string>
-    <string name="widget_disclaimer_title">Funcionalidad beta</string>
+
     <string name="preference_background_regular_past">Lecciones regulares pasadas</string>
     <string name="all_dialog_open_settings">Abrir configuración</string>
     <string name="roomfinder_item_desc_occupied">Esta aula está ocupada.</string>

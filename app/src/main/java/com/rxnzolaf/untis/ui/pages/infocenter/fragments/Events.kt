@@ -6,16 +6,21 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.rxnzolaf.untis.R
+import com.rxnzolaf.untis.helpers.CalendarHelper
 import com.sapuseven.untis.api.model.untis.classreg.Exam
 import com.sapuseven.untis.api.model.untis.classreg.HomeWork
 import com.sapuseven.untis.api.model.untis.enumeration.ElementType
@@ -94,10 +99,36 @@ fun InfoCenterEvents(uiState: EventsUiState) {
 
 @Composable
 private fun ExamItem(item: Exam) {
-	val subject = LocalMasterDataRepository.current.getShortName(
+	val context = LocalContext.current
+	val masterDataRepo = LocalMasterDataRepository.current
+	val subject = masterDataRepo.getShortName(
 		item.subjectId,
 		ElementType.SUBJECT
 	)
+	val subjectLong = masterDataRepo.getLongName(
+		item.subjectId,
+		ElementType.SUBJECT
+	)
+	val displaySubject = if (subjectLong.isNotBlank() && subjectLong != "?") subjectLong else subject
+
+	val roomNames = item.roomIds.map {
+		masterDataRepo.getShortName(it, ElementType.ROOM)
+	}.filter { it.isNotBlank() && it != "?" }.joinToString(", ")
+
+	val teacherNames = item.teacherIds.map {
+		masterDataRepo.getLongName(it, ElementType.TEACHER)
+	}.filter { it.isNotBlank() && it != "?" }.joinToString(", ")
+
+	val classNames = item.klasseIds.map {
+		masterDataRepo.getShortName(it, ElementType.CLASS)
+	}.filter { it.isNotBlank() && it != "?" }.joinToString(", ")
+
+	val eventTitle = if (displaySubject.isNotBlank() && displaySubject != "?") {
+		stringResource(R.string.calendar_title_exam, displaySubject)
+	} else {
+		item.name.ifBlank { stringResource(R.string.all_exam) }
+	}
+
 	ListItem(
 		overlineContent = {
 			Text(formatExamTime(item.startDateTime, item.endDateTime))
@@ -111,6 +142,27 @@ private fun ExamItem(item: Exam) {
 				)
 				else item.name
 			)
+		},
+		trailingContent = {
+			IconButton(onClick = {
+				CalendarHelper.addToCalendar(
+					context = context,
+					title = eventTitle,
+					startDateTime = item.startDateTime,
+					endDateTime = item.endDateTime,
+					location = roomNames.ifBlank { masterDataRepo.user?.schoolInfo?.displayName },
+					subject = displaySubject,
+					teachers = teacherNames,
+					classes = classNames,
+					type = item.examType,
+					notes = listOfNotNull(item.name.takeIf { it != eventTitle && it != displaySubject }, item.text.takeIf { it.isNotBlank() }).joinToString("\n")
+				)
+			}) {
+				Icon(
+					painter = painterResource(id = R.drawable.all_calendar_add),
+					contentDescription = stringResource(id = R.string.add_to_calendar)
+				)
+			}
 		}
 	)
 }

@@ -73,6 +73,9 @@ object AppRoutes {
 		data object Notifications
 
 		@Serializable
+		data object CustomNames
+
+		@Serializable
 		data object About {
 
 			@Serializable

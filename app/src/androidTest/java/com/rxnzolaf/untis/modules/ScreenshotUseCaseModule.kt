@@ -3,8 +3,10 @@ package com.rxnzolaf.untis.modules
 import com.sapuseven.untis.api.model.untis.MessageOfDay
 import com.rxnzolaf.untis.data.database.entities.RoomEntity
 import com.rxnzolaf.untis.domain.GetMessagesOfDayUseCase
+import com.rxnzolaf.untis.domain.GetMessagesUseCase
 import com.rxnzolaf.untis.domain.GetRoomFinderItemsUseCase
 import com.rxnzolaf.untis.models.RoomFinderItem
+import com.sapuseven.untis.model.rest.Message
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
@@ -22,7 +24,7 @@ import javax.inject.Singleton
 class ScreenshotUseCaseModule {
 	@Singleton
 	@Provides
-	fun provideGetMessagesUseCase(): GetMessagesOfDayUseCase = object : GetMessagesOfDayUseCase {
+	fun provideGetMessagesOfDayUseCase(): GetMessagesOfDayUseCase = object : GetMessagesOfDayUseCase {
 		override operator fun invoke(): Flow<Result<List<MessageOfDay>>> = flow {
 			emit(
 				Result.success(
@@ -47,6 +49,18 @@ class ScreenshotUseCaseModule {
 					)
 				)
 			)
+		}
+	}
+
+	@Singleton
+	@Provides
+	fun provideGetMessagesUseCase(): GetMessagesUseCase = object : GetMessagesUseCase {
+		override operator fun invoke(): Flow<Result<List<Message>>> = flow {
+			emit(Result.success(emptyList()))
+		}
+
+		override operator fun invoke(id: Long): Flow<Result<Message>> = flow {
+			emit(Result.failure(NoSuchElementException()))
 		}
 	}
 

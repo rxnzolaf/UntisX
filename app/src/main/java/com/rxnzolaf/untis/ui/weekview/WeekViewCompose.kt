@@ -73,6 +73,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastAny
 import androidx.compose.ui.util.fastForEach
 import com.rxnzolaf.untis.R
+import com.rxnzolaf.untis.data.repository.LocalMasterDataRepository
 import com.rxnzolaf.untis.services.WeekLogicService
 import com.rxnzolaf.untis.ui.common.conditional
 import com.rxnzolaf.untis.ui.common.ifNotNull
@@ -108,6 +109,7 @@ fun WeekViewHeaderDay(
 	isToday: Boolean = false,
 	onClick: ((day: LocalDate) -> Unit)? = null
 ) {
+	val masterDataRepository = LocalMasterDataRepository.current
 	Column(
 		modifier = Modifier
 			.padding(2.dp)
@@ -118,7 +120,7 @@ fun WeekViewHeaderDay(
 			.padding(2.dp)
 	) {
 		Text(
-			text = dayNameFormat.format(day),
+			text = masterDataRepository.getWeekdayDisplayShortName(day.dayOfWeek),
 			textAlign = TextAlign.Center,
 			style = MaterialTheme.typography.titleLarge,
 			maxLines = 1,

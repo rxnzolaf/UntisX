@@ -24,6 +24,7 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -57,7 +58,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import com.rxnzolaf.untis.BuildConfig
+import com.rxnzolaf.untis.data.repository.CustomNamesEntryPoint
+import com.rxnzolaf.untis.helpers.CalendarHelper
+import com.rxnzolaf.untis.ui.dialogs.CustomSubjectEditorDialog
+import dagger.hilt.android.EntryPointAccessors
 import com.rxnzolaf.untis.R
 import com.sapuseven.untis.api.model.untis.Attachment
 import com.sapuseven.untis.api.model.untis.Person
@@ -135,6 +142,8 @@ fun TimetableItemDetailsDialog(
 			}
 	}
 
+	val context = LocalContext.current
+
 	AppScaffold(
 		topBar = {
 			CenterAlignedTopAppBar(
@@ -153,6 +162,47 @@ fun TimetableItemDetailsDialog(
 					}
 				},
 				actions = {
+					IconButton(
+						onClick = {
+							val currentItem = periodItems.getOrNull(pagerState.currentPage) ?: return@IconButton
+							val subjectName = currentItem.getLong(ElementType.SUBJECT).ifBlank { currentItem.getShort(ElementType.SUBJECT) }
+							val isExam = currentItem.isExam() || currentItem.originalPeriod.exam != null
+							val eventTitle = if (isExam) {
+								context.getString(R.string.calendar_title_exam, subjectName)
+							} else {
+								subjectName
+							}
+							val roomStr = currentItem.getShort(ElementType.ROOM).takeIf { it != "?" && it.isNotBlank() }
+								?: masterDataRepository.user?.schoolInfo?.displayName
+							val teacherStr = currentItem.getLong(ElementType.TEACHER).takeIf { it != "?" && it.isNotBlank() }
+							val classStr = currentItem.getShort(ElementType.CLASS).takeIf { it != "?" && it.isNotBlank() }
+							val notesList = listOfNotNull(
+								currentItem.originalPeriod.exam?.name,
+								currentItem.originalPeriod.exam?.text,
+								currentItem.originalPeriod.text.lesson.takeIf { it.isNotBlank() },
+								currentItem.originalPeriod.text.substitution.takeIf { it.isNotBlank() },
+								currentItem.originalPeriod.text.info.takeIf { it.isNotBlank() }
+							).distinct()
+
+							CalendarHelper.addToCalendar(
+								context = context,
+								title = eventTitle,
+								startDateTime = currentItem.originalPeriod.startDateTime,
+								endDateTime = currentItem.originalPeriod.endDateTime,
+								location = roomStr,
+								subject = subjectName,
+								teachers = teacherStr,
+								classes = classStr,
+								type = currentItem.originalPeriod.exam?.examtype,
+								notes = notesList.joinToString("\n")
+							)
+						}
+					) {
+						Icon(
+							painter = painterResource(id = R.drawable.all_calendar_add),
+							contentDescription = stringResource(id = R.string.add_to_calendar)
+						)
+					}
 					if (BuildConfig.DEBUG)
 						DebugTimetableItemDetailsAction(periodItems, periodDataMap)
 				}
@@ -303,6 +353,28 @@ private fun TimetableItemDetailsDialogPage(
 
 	var lessonTopicNew by rememberSaveable { mutableStateOf<String?>(periodData?.topic?.text) }
 
+	var editingSubjectElement by remember { mutableStateOf<PeriodElement?>(null) }
+
+	editingSubjectElement?.let { element ->
+		val userId = masterDataRepository.user?.id ?: -1L
+		if (userId > 0L) {
+			val customNamesRepo = remember {
+				EntryPointAccessors.fromApplication(context.applicationContext, CustomNamesEntryPoint::class.java).customNamesRepository()
+			}
+			val originalLong = masterDataRepository.getLongName(element)
+			val originalShort = masterDataRepository.getShortName(element)
+			CustomSubjectEditorDialog(
+				userId = userId,
+				subjectKey = element.id.toString(),
+				originalLongName = originalLong,
+				originalShortName = originalShort,
+				customNamesRepository = customNamesRepo,
+				existingCustom = null,
+				onDismiss = { editingSubjectElement = null }
+			)
+		}
+	}
+
 	Column(
 		horizontalAlignment = Alignment.CenterHorizontally,
 		modifier = Modifier
@@ -319,12 +391,30 @@ private fun TimetableItemDetailsDialogPage(
 				.size(dimensionResource(id = R.dimen.size_header_icon))
 		)
 
-		Text(
-			text = title,
-			style = MaterialTheme.typography.headlineSmall,
-			textAlign = TextAlign.Center,
-			modifier = Modifier.padding(horizontal = 8.dp)
-		)
+		Row(
+			verticalAlignment = Alignment.CenterVertically,
+			horizontalArrangement = Arrangement.Center,
+			modifier = Modifier
+				.padding(horizontal = 8.dp)
+				.clip(RoundedCornerShape(8.dp))
+				.clickable {
+					periodItem.subjects.firstOrNull()?.let { editingSubjectElement = it }
+				}
+				.padding(8.dp)
+		) {
+			Text(
+				text = title,
+				style = MaterialTheme.typography.headlineSmall,
+				textAlign = TextAlign.Center
+			)
+			Spacer(modifier = Modifier.width(8.dp))
+			Icon(
+				imageVector = Icons.Outlined.Edit,
+				contentDescription = stringResource(R.string.custom_names_edit_subject),
+				modifier = Modifier.size(18.dp),
+				tint = MaterialTheme.colorScheme.primary
+			)
+		}
 
 		Text(
 			text = time,
@@ -451,12 +541,12 @@ private fun TimetableItemDetailsDialogPage(
 			}
 
 			// Lesson exam
-			periodItem.originalPeriod.exam?.also {
+			periodItem.originalPeriod.exam?.also { exam ->
 				ListItem(
 					headlineContent = {
-						Text(it.name ?: stringResource(id = R.string.all_exam))
+						Text(exam.name ?: stringResource(id = R.string.all_exam))
 					},
-					supportingContent = it.text?.let { { Text(it) } },
+					supportingContent = exam.text?.let { { Text(it) } },
 					leadingContent = {
 						Icon(
 							painter = painterResource(id = R.drawable.infocenter_exam),
@@ -464,6 +554,33 @@ private fun TimetableItemDetailsDialogPage(
 							tint = MaterialTheme.colorScheme.onSurface,
 							modifier = Modifier.padding(horizontal = 8.dp)
 						)
+					},
+					trailingContent = {
+						IconButton(onClick = {
+							val subjectName = periodItem.getLong(ElementType.SUBJECT).ifBlank { periodItem.getShort(ElementType.SUBJECT) }
+							val roomStr = periodItem.getShort(ElementType.ROOM).takeIf { it != "?" && it.isNotBlank() }
+								?: masterDataRepository.user?.schoolInfo?.displayName
+							val teacherStr = periodItem.getLong(ElementType.TEACHER).takeIf { it != "?" && it.isNotBlank() }
+							val classStr = periodItem.getShort(ElementType.CLASS).takeIf { it != "?" && it.isNotBlank() }
+
+							CalendarHelper.addToCalendar(
+								context = context,
+								title = context.getString(R.string.calendar_title_exam, subjectName),
+								startDateTime = periodItem.originalPeriod.startDateTime,
+								endDateTime = periodItem.originalPeriod.endDateTime,
+								location = roomStr,
+								subject = subjectName,
+								teachers = teacherStr,
+								classes = classStr,
+								type = exam.examtype,
+								notes = listOfNotNull(exam.name, exam.text).filter { it.isNotBlank() }.joinToString("\n")
+							)
+						}) {
+							Icon(
+								painter = painterResource(id = R.drawable.all_calendar_add),
+								contentDescription = stringResource(id = R.string.add_to_calendar)
+							)
+						}
 					}
 				)
 			}

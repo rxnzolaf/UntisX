@@ -7,6 +7,8 @@ import com.rxnzolaf.untis.data.database.entities.CustomClassEntity
 import com.rxnzolaf.untis.data.database.entities.CustomRoomEntity
 import com.rxnzolaf.untis.data.database.entities.CustomSubjectEntity
 import com.rxnzolaf.untis.data.database.entities.CustomTeacherEntity
+import com.rxnzolaf.untis.data.database.entities.CustomSubjectNameEntity
+import com.rxnzolaf.untis.data.database.entities.CustomWeekdayNameEntity
 import com.rxnzolaf.untis.data.database.entities.ElementEntity
 import com.rxnzolaf.untis.data.database.entities.KlasseEntity
 import com.rxnzolaf.untis.data.database.entities.RoomEntity
@@ -24,9 +26,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.DayOfWeek
+import java.time.format.TextStyle
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -44,6 +48,9 @@ interface MasterDataRepository {
 
 	fun getLongName(id: Long, type: ElementType, default: String = ELEMENT_NAME_UNKNOWN): String
 	fun getLongName(periodElement: PeriodElement, default: String = ELEMENT_NAME_UNKNOWN): String
+
+	fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String
+	fun getWeekdayDisplayShortName(dayOfWeek: DayOfWeek): String
 
 	fun isAllowed(id: Long, type: ElementType? = null): Boolean
 	fun isAllowed(periodElement: PeriodElement): Boolean
@@ -65,6 +72,9 @@ class DefaultMasterDataRepository : MasterDataRepository {
 	override fun getLongName(id: Long, type: ElementType, default: String): String = "$type:$id"
 	override fun getLongName(periodElement: PeriodElement, default: String) = getLongName(periodElement.id, periodElement.type)
 
+	override fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String = dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
+	override fun getWeekdayDisplayShortName(dayOfWeek: DayOfWeek): String = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+
 	override fun isAllowed(id: Long, type: ElementType?): Boolean = true
 	override fun isAllowed(periodElement: PeriodElement): Boolean = true
 }
@@ -72,7 +82,8 @@ class DefaultMasterDataRepository : MasterDataRepository {
 @Singleton
 class UntisMasterDataRepository @Inject constructor(
 	private val userDao: UserDao,
-	private val userRepository: UserRepository
+	private val userRepository: UserRepository,
+	private val customNamesRepository: CustomNamesRepository
 ) : MasterDataRepository {
 	private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO);
 
@@ -127,10 +138,20 @@ class UntisMasterDataRepository @Inject constructor(
 			}
 		}.stateIn(scope, SharingStarted.Eagerly, emptyList())
 
+	private val _customSubjectNames = MutableStateFlow<Map<String, CustomSubjectNameEntity>>(emptyMap())
+	private val _customWeekdayNames = MutableStateFlow<Map<Int, CustomWeekdayNameEntity>>(emptyMap())
+
 	init {
 		scope.launch {
 			userRepository.userState.collectLatest { userState ->
 				(userState as? UserRepository.UserState.User)?.user?.let { user ->
+					scope.launch {
+						customNamesRepository.getSubjectNamesFlow(user.id).collect { _customSubjectNames.value = it }
+					}
+					scope.launch {
+						customNamesRepository.getWeekdayNamesFlow(user.id).collect { _customWeekdayNames.value = it }
+					}
+
 					if (user.apiHost == "custom" || user.isCustom) {
 						_userData.value = null
 						_allClasses.value = emptyMap()
@@ -164,6 +185,8 @@ class UntisMasterDataRepository @Inject constructor(
 					_customTeachers.value = emptyMap()
 					_customRooms.value = emptyMap()
 					_customSubjects.value = emptyMap()
+					_customSubjectNames.value = emptyMap()
+					_customWeekdayNames.value = emptyMap()
 				}
 			}
 		}
@@ -174,22 +197,28 @@ class UntisMasterDataRepository @Inject constructor(
 
 	override fun getShortName(id: Long, type: ElementType?, default: String): String {
 		val isCustomUser = user?.let { it.apiHost == "custom" || it.isCustom } == true
-		if (isCustomUser) {
-			return when (type) {
+		val baseName = if (isCustomUser) {
+			when (type) {
 				ElementType.CLASS -> _customClasses.value[id]?.name
 				ElementType.TEACHER -> _customTeachers.value[id]?.run { shortName.ifEmpty { name } }
 				ElementType.SUBJECT -> _customSubjects.value[id]?.run { shortName.ifEmpty { name } }
 				ElementType.ROOM -> _customRooms.value[id]?.name
 				else -> null
 			} ?: default
+		} else {
+			when (type) {
+				ElementType.CLASS -> _allClasses.value[id]?.name
+				ElementType.TEACHER -> _allTeachers.value[id]?.name
+				ElementType.SUBJECT -> _allSubjects.value[id]?.name
+				ElementType.ROOM -> _allRooms.value[id]?.name
+				else -> null
+			} ?: default
 		}
-		return when (type) {
-			ElementType.CLASS -> _allClasses.value[id]?.name
-			ElementType.TEACHER -> _allTeachers.value[id]?.name
-			ElementType.SUBJECT -> _allSubjects.value[id]?.name
-			ElementType.ROOM -> _allRooms.value[id]?.name
-			else -> null
-		} ?: default
+
+		if (type == ElementType.SUBJECT) {
+			return CustomNamesRepository.resolveSubjectShortName(_customSubjectNames.value, id.toString(), baseName)
+		}
+		return baseName
 	}
 
 	override fun getShortName(periodElement: PeriodElement, default: String) =
@@ -197,26 +226,40 @@ class UntisMasterDataRepository @Inject constructor(
 
 	override fun getLongName(id: Long, type: ElementType, default: String): String {
 		val isCustomUser = user?.let { it.apiHost == "custom" || it.isCustom } == true
-		if (isCustomUser) {
-			return when (type) {
+		val baseName = if (isCustomUser) {
+			when (type) {
 				ElementType.CLASS -> _customClasses.value[id]?.name
 				ElementType.TEACHER -> _customTeachers.value[id]?.name
 				ElementType.SUBJECT -> _customSubjects.value[id]?.name
 				ElementType.ROOM -> _customRooms.value[id]?.name
 				else -> null
 			} ?: default
+		} else {
+			when (type) {
+				ElementType.CLASS -> _allClasses.value[id]?.longName
+				ElementType.TEACHER -> _allTeachers.value[id]?.run { "$firstName $lastName" }
+				ElementType.SUBJECT -> _allSubjects.value[id]?.longName
+				ElementType.ROOM -> _allRooms.value[id]?.longName
+				else -> null
+			} ?: default
 		}
-		return when (type) {
-			ElementType.CLASS -> _allClasses.value[id]?.longName
-			ElementType.TEACHER -> _allTeachers.value[id]?.run { "$firstName $lastName" }
-			ElementType.SUBJECT -> _allSubjects.value[id]?.longName
-			ElementType.ROOM -> _allRooms.value[id]?.longName
-			else -> null
-		} ?: default
+
+		if (type == ElementType.SUBJECT) {
+			return CustomNamesRepository.resolveSubjectLongName(_customSubjectNames.value, id.toString(), baseName)
+		}
+		return baseName
 	}
 
 	override fun getLongName(periodElement: PeriodElement, default: String) =
 		getLongName(periodElement.id, periodElement.type, default)
+
+	override fun getWeekdayDisplayName(dayOfWeek: DayOfWeek): String {
+		return CustomNamesRepository.resolveWeekdayName(_customWeekdayNames.value, dayOfWeek)
+	}
+
+	override fun getWeekdayDisplayShortName(dayOfWeek: DayOfWeek): String {
+		return CustomNamesRepository.resolveWeekdayShortName(_customWeekdayNames.value, dayOfWeek)
+	}
 
 	override fun isAllowed(id: Long, type: ElementType?): Boolean {
 		val isCustomUser = user?.let { it.apiHost == "custom" || it.isCustom } == true
@@ -239,14 +282,6 @@ class UntisMasterDataRepository @Inject constructor(
 	}
 
 	override fun isAllowed(periodElement: PeriodElement) = isAllowed(periodElement.id, periodElement.type)
-}
-
-private fun <T : ElementEntity> StateFlow<Map<Long, T>>.mapToPeriodElements(scope: CoroutineScope, type: ElementType): StateFlow<List<PeriodElement>> {
-	return this.map { it.values.map { PeriodElement(type, it.id) }}.stateIn(
-		scope = scope,
-		started = SharingStarted.Eagerly,
-		initialValue = emptyList()
-	)
 }
 
 val LocalMasterDataRepository = compositionLocalOf<MasterDataRepository> { DefaultMasterDataRepository() }

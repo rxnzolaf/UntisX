@@ -17,6 +17,7 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -33,7 +34,11 @@ object JsonRpcApiClientModule {
 	fun provideJsonHttpClient(httpClientEngineFactory: HttpClientEngineFactory<*>): HttpClient =
 		HttpClient(httpClientEngineFactory.create()) {
 			install(ContentNegotiation) {
-				json()
+				json(Json {
+					ignoreUnknownKeys = true
+					isLenient = true
+					encodeDefaults = true
+				})
 			}
 			install(HttpRequestRetry) {
 				retryOnServerErrors(maxRetries = 3)

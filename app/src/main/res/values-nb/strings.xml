@@ -257,11 +257,8 @@
         <item quantity="one">%1$d bidrag</item>
         <item quantity="other">%1$d bidrag</item>
     </plurals>
-    <string name="widget_select_profile">Velg en profil for miniprogrammet</string>
-    <string name="widget_daily_messages">Daglige meldinger</string>
     <string name="widget_timetable_empty">Ingen timeplan i dag</string>
     <string name="widget_timetable">Timeplan</string>
-    <string name="widget_configuration">Miniprogramsoppsett</string>
     <string name="preference_timetable_colors_reset_button_positive">Tilbakestill</string>
     <string name="preference_theme_pixel">Piksel</string>
     <string name="infocenter_messages_attachments">Vedlegg</string>

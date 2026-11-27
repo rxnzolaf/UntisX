@@ -23,6 +23,7 @@ import com.rxnzolaf.untis.ui.navigation.AppRoutes
 import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryAbout
 import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryAboutContributors
 import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryAboutLibraries
+import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryCustomNames
 import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryGeneral
 import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryNotifications
 import com.rxnzolaf.untis.ui.pages.settings.fragments.SettingsCategoryStyling
@@ -83,6 +84,19 @@ fun NavGraphBuilder.settingsNav(
 			)
 
 			SettingsCategory(
+				key = AppRoutes.Settings.CustomNames,
+				title = { Text(stringResource(id = R.string.custom_names_title)) },
+				summary = { Text(stringResource(id = R.string.custom_names_desc)) },
+				icon = {
+					Icon(
+						painter = painterResource(id = R.drawable.all_prefs_personal),
+						contentDescription = null
+					)
+				},
+				navController = navController
+			)
+
+			SettingsCategory(
 				key = AppRoutes.Settings.Notifications,
 				title = { Text(stringResource(id = R.string.preferences_notifications)) },
 				summary = { Text(stringResource(id = R.string.preferences_notifications_summary)) },
@@ -134,6 +148,14 @@ fun NavGraphBuilder.settingsNav(
 			title = stringResource(id = R.string.preferences_timetable)
 		) { viewModel ->
 			SettingsCategoryTimetable(viewModel)
+		}
+	}
+	composable<AppRoutes.Settings.CustomNames> {
+		SettingsScreen(
+			navController = navController,
+			title = stringResource(id = R.string.custom_names_title)
+		) {
+			SettingsCategoryCustomNames()
 		}
 	}
 	composable<AppRoutes.Settings.Notifications> {

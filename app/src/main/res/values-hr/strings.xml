@@ -28,11 +28,8 @@
         <item quantity="few">prije %d minute</item>
         <item quantity="other">prije %d minuta</item>
     </plurals>
-    <string name="widget_select_profile">Odaberi profil za programčić</string>
-    <string name="widget_daily_messages">Dnevne poruke</string>
     <string name="widget_timetable_empty">Nema rasporeda sati za danas</string>
     <string name="widget_timetable">Raspored sati</string>
-    <string name="widget_configuration">Konfiguracija programčića</string>
     <string name="loading_failed">Neuspjelo učitavanje</string>
     <string name="loading">Učitavanje</string>
     <string name="errors_report">Pomogni popraviti aplikaciju prijavljivanjem donjih grešaka:</string>
@@ -313,7 +310,7 @@
     <string name="infocenter_absences_filter_time_ranges">Vremenski raspon</string>
     <string name="preference_automute_mute_priority">Nemoj dopustiti da prioritetni događaji ignoriraju automatsko isključivanje zvuka</string>
     <string name="settings_dialog_url_open_text">UntisX nije mogao pronaći aplikaciju koja može otvarati poveznice.\nProvjeri imaš li instaliran web preglednik ili otvori poveznicu na jednom drugom uređaju:</string>
-    <string name="widget_disclaimer_text">Funkcija widgeta se još uvijek nalazi u fazi razvoja i možda neće ispravno raditi na svim uređajima.</string>
+
     <string name="logindatainput_dialog_qrcodeinvalid_title">Nevažeći QR kod</string>
     <string name="maindrawer_bookmarks_add">Dodaj raspored sati</string>
     <string name="roomfinder_error">Greška pri učitavanju podataka.</string>
@@ -321,7 +318,7 @@
     <string name="all_datepicker_month_next">Sljedeći mjesec</string>
     <string name="all_datepicker_month_previous">Prethodni mjesec</string>
     <string name="all_reload">Učitaj ponovo</string>
-    <string name="widget_disclaimer_title">Beta funkcija</string>
+
     <string name="login_demo">Isprobaj!</string>
     <string name="all_favourites">Favoriti</string>
     <string name="preference_dialog_permission_alarms_title">Potrebna je dozvola</string>

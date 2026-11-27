@@ -22,8 +22,12 @@ import com.rxnzolaf.untis.data.database.entities.TeachingMethodEntity
 import com.rxnzolaf.untis.data.database.entities.User
 import com.rxnzolaf.untis.data.database.entities.UserDao
 import com.rxnzolaf.untis.data.database.entities.UserWithData
-import com.rxnzolaf.untis.data.database.entities.User
-import com.rxnzolaf.untis.ui.pages.login.datainput.DEMO_API_URL
+import com.rxnzolaf.untis.data.database.entities.CustomLessonEntity
+import com.rxnzolaf.untis.data.database.entities.CustomClassEntity
+import com.rxnzolaf.untis.data.database.entities.CustomTeacherEntity
+import com.rxnzolaf.untis.data.database.entities.CustomRoomEntity
+import com.rxnzolaf.untis.data.database.entities.CustomSubjectEntity
+import com.rxnzolaf.untis.data.database.entities.CustomTimeGridEntity
 import com.rxnzolaf.untis.utils.SCREENSHOT_PROFILE_NAME
 import dagger.Module
 import dagger.Provides
@@ -39,7 +43,7 @@ import javax.inject.Singleton
 @Module
 @TestInstallIn(
 	components = [SingletonComponent::class],
-	replaces = [UserModule::class, UserDatabaseModule::class]
+	replaces = [UserDatabaseModule::class]
 )
 object FakeUserModule {
 	const val MOCK_USER_ID: Long = Long.MAX_VALUE
@@ -47,7 +51,7 @@ object FakeUserModule {
 	private val fakeUser = User(
 		id = MOCK_USER_ID,
 		profileName = SCREENSHOT_PROFILE_NAME,
-		apiUrl = DEMO_API_URL,
+		apiHost = "demo.untis.com",
 		schoolId = "test",
 		user = "test.user",
 		key = "test.key",
@@ -66,7 +70,7 @@ object FakeUserModule {
 		),
 		settings = null,
 		created = null,
-		bookmarks = emptySet()
+		isCustom = false
 	)
 
 	private fun timeGrid(): TimeGrid = TimeGrid(
@@ -147,22 +151,14 @@ object FakeUserModule {
 		),
 	)
 
-	@Singleton
-	@Provides
-	fun provideFakeUserScopeManager() = object : UserScopeManager {
-		override val user: User = fakeUser
-
-		override val userOptional: User = user
-
-		override fun handleUserChange(user: User) {}
-	}
-
 	@Provides
 	@Singleton
 	fun provideUserDao() = object : UserDao {
 		private val userWithDataFlow = MutableStateFlow<UserWithData?>(null)
 
 		override fun getAllFlow(): Flow<List<User>> = flow { emit(getAll()) }
+
+		override suspend fun getAllAsync(): List<User> = listOf(fakeUser)
 
 		@Deprecated("Use getAllFlow instead")
 		override fun getAll(): List<User> = listOf(fakeUser)
@@ -176,6 +172,31 @@ object FakeUserModule {
 		override suspend fun getByIdWithData(userId: Long): UserWithData? = userWithDataFlow.value
 
 		override fun getByIdWithDataFlow(userId: Long): Flow<UserWithData?> = userWithDataFlow
+
+		override suspend fun getCustomLessons(userId: Long): List<CustomLessonEntity> = emptyList()
+		override fun getCustomLessonsFlow(userId: Long): Flow<List<CustomLessonEntity>> = flow { emit(emptyList()) }
+		override suspend fun upsertCustomLesson(lesson: CustomLessonEntity) {}
+		override suspend fun deleteCustomLesson(lesson: CustomLessonEntity) {}
+
+		override fun getCustomClassesFlow(userId: Long): Flow<List<CustomClassEntity>> = flow { emit(emptyList()) }
+		override suspend fun upsertCustomClass(item: CustomClassEntity) {}
+		override suspend fun deleteCustomClass(item: CustomClassEntity) {}
+
+		override fun getCustomTeachersFlow(userId: Long): Flow<List<CustomTeacherEntity>> = flow { emit(emptyList()) }
+		override suspend fun upsertCustomTeacher(item: CustomTeacherEntity) {}
+		override suspend fun deleteCustomTeacher(item: CustomTeacherEntity) {}
+
+		override fun getCustomRoomsFlow(userId: Long): Flow<List<CustomRoomEntity>> = flow { emit(emptyList()) }
+		override suspend fun upsertCustomRoom(item: CustomRoomEntity) {}
+		override suspend fun deleteCustomRoom(item: CustomRoomEntity) {}
+
+		override fun getCustomSubjectsFlow(userId: Long): Flow<List<CustomSubjectEntity>> = flow { emit(emptyList()) }
+		override suspend fun upsertCustomSubject(item: CustomSubjectEntity) {}
+		override suspend fun deleteCustomSubject(item: CustomSubjectEntity) {}
+
+		override fun getCustomTimeGridFlow(userId: Long): Flow<List<CustomTimeGridEntity>> = flow { emit(emptyList()) }
+		override suspend fun upsertCustomTimeGrid(item: CustomTimeGridEntity) {}
+		override suspend fun deleteCustomTimeGrid(item: CustomTimeGridEntity) {}
 
 		override suspend fun insert(user: User): Long = MOCK_USER_ID
 
@@ -204,25 +225,6 @@ object FakeUserModule {
 		override suspend fun insertTeachingMethods(teachingMethods: List<TeachingMethodEntity>) {}
 
 		override suspend fun insertSchoolYears(schoolYears: List<SchoolYearEntity>) {}
-
-		override suspend fun insertMasterData(userId: Long, masterData: MasterData) {
-			userWithDataFlow.emit(UserWithData(
-				fakeUser,
-				masterData.absenceReasons.orEmpty().map { AbsenceReasonEntity.map(it, userId) },
-				masterData.departments.orEmpty().map { DepartmentEntity.map(it, userId) },
-				masterData.duties.orEmpty().map { DutyEntity.map(it, userId) },
-				masterData.eventReasons.orEmpty().map { EventReasonEntity.map(it, userId) },
-				masterData.eventReasonGroups.orEmpty().map { EventReasonGroupEntity.map(it, userId) },
-				masterData.excuseStatuses.orEmpty().map { ExcuseStatusEntity.map(it, userId) },
-				masterData.holidays.orEmpty().map { HolidayEntity.map(it, userId) },
-				masterData.klassen.map { KlasseEntity.map(it, userId) },
-				masterData.rooms.map { RoomEntity.map(it, userId) },
-				masterData.subjects.map { SubjectEntity.map(it, userId) },
-				masterData.teachers.map { TeacherEntity.map(it, userId) },
-				masterData.teachingMethods.orEmpty().map { TeachingMethodEntity.map(it, userId) },
-				masterData.schoolyears.orEmpty().map { SchoolYearEntity.map(it, userId) },
-			))
-		}
 
 		override suspend fun upsertAbsenceReasons(absenceReasons: List<AbsenceReasonEntity>) {}
 
@@ -281,5 +283,23 @@ object FakeUserModule {
 		override suspend fun deleteTeachingMethods(teachingMethods: List<TeachingMethodEntity>) {}
 
 		override suspend fun deleteSchoolYears(schoolYears: List<SchoolYearEntity>) {}
+
+		override suspend fun deleteUserData(userWithData: UserWithData) {
+			deleteAbsenceReasons(userWithData.absenceReasons)
+			deleteDepartments(userWithData.departments)
+			deleteDuties(userWithData.duties)
+			deleteEventReasons(userWithData.eventReasons)
+			deleteEventReasonGroups(userWithData.eventReasonGroups)
+			deleteExcuseStatuses(userWithData.excuseStatuses)
+			deleteHolidays(userWithData.holidays)
+			deleteKlassen(userWithData.klassen)
+			deleteRooms(userWithData.rooms)
+			deleteSubjects(userWithData.subjects)
+			deleteTeachers(userWithData.teachers)
+			deleteTeachingMethods(userWithData.teachingMethods)
+			deleteSchoolYears(userWithData.schoolYears)
+		}
+
+		override suspend fun deleteUserData(userId: Long) = getByIdWithData(userId)?.let { deleteUserData(it) }
 	}
 }

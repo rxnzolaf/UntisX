@@ -117,7 +117,7 @@
         <item quantity="one">duela minutu bat</item>
         <item quantity="other">duela %d minutu</item>
     </plurals>
-    <string name="widget_daily_messages">Eguneroko mezuak</string>
+
     <string name="widget_timetable_empty">Ez dago gaurko ordutegirik erabilgarri</string>
     <string name="widget_timetable">Ordutegia</string>
     <string name="loading_failed">Ezin izan da kargatu</string>
@@ -268,8 +268,7 @@
     <string name="all_lessontopic_none">(Gairik ez)</string>
     <string name="all_lesson_details">Eskolaren xehetasunak</string>
     <string name="app_desc">Untis ordutegi-sistemarako mugikorreko bezero alternatiboa.</string>
-    <string name="widget_select_profile">Hautatu profila widget-erako</string>
-    <string name="widget_configuration">Widget-en ezarpena</string>
+
     <string name="preference_timetable_range_desc">Ordu-tartea: %1$d-%2$d</string>
     <string name="homeworks_due_time_format">EEE, MMM dd</string>
     <string name="preference_timetable_substitutions_irregular_desc">Ordezkapenak dituzten eskolak ezohikotzat jo</string>

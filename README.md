@@ -3,7 +3,7 @@
 # UntisX
 An alternative mobile client for the Untis timetable system.
 
-**Current version:** 6.0.0-beta02 (beta release)
+**Current version:** 6.0.0-beta03 (beta release)
 
 UntisX was originally forked from [BetterUntis](https://github.com/SapuSeven/BetterUntis) and is maintained independently by [rxnzolaf](https://github.com/rxnzolaf).
 
@@ -19,10 +19,12 @@ Screenshots coming soon.
 - Simple and straight-forward login process
 - Fast timetable loading with smart caching
 - Multiple separate accounts/profiles (including offline CUSTOM profiles with full week view grid and timetable management)
+- One-tap "Add to calendar" for exams, Info Center events, and timetable lessons (zero calendar permissions needed)
+- Custom subject nicknames and abbreviations with automatic calendar and timetable integration
 - RoomFinder to quickly find free rooms
 - Info Center for viewing events, contact hours and own absences
 - Class management features for teachers (Absence checking, lesson topic editing, ...)
-- Break notifications, auto-mute during lessons, and initial widget support
+- Break notifications and auto-mute during lessons
 - Privacy-focused design with manual bug reporting via GitHub issues (no automatic error tracking or crash reporting)
 
 ## Available languages
@@ -55,6 +57,14 @@ to potentially reuse them in other projects.
 
 ### UntisX
 
+#### v6.0.0-beta03
+- Updated application logo and icon assets.
+- Added one-tap "Add to calendar" feature for exams, Info Center events, and timetable lessons via system intent (no extra calendar permissions required).
+- Added support for custom subject display names / nicknames in calendar entries, timetable views, and detail dialogs.
+- Added localized German and English string resources for calendar event pre-filling.
+- Polished lesson/exam detail view dialog and Info Center exam list interactions.
+- Removed experimental widget support as it was non-functional/unreliable.
+
 #### v6.0.0-beta02
 - Added full support for CUSTOM (offline) profiles with complete week view grid and lesson rendering.
 - Added offline management screens for custom Classes, Teachers, Rooms, and Subjects (with create, edit, and delete support).
@@ -75,7 +85,7 @@ Key changes in 6.0.0-beta01 include:
 
 ### Branch: master
 **master** is the only permanent branch of this repository and always contains the latest state of the project.
-Release tags (for example `6.0.0-beta02`) are created from **master**, which is also the base for all pull requests.
+Release tags (for example `6.0.0-beta03`) are created from **master**, which is also the base for all pull requests.
 
 ### Other branches
 Bigger features and experiments that require multiple commits should branch off **master** and merge back into it.
@@ -95,7 +105,7 @@ If you encounter a bug or issue in UntisX, please submit a report manually via [
 
 When opening an issue, please include:
 - A description of what happened and steps to reproduce the issue.
-- Your UntisX version (e.g., `6.0.0-beta02`) and Android version.
+- Your UntisX version (e.g., `6.0.0-beta03`) and Android version.
 - Device model.
 
 **Important:** Do not include personal data, credentials, or passwords in your bug report.

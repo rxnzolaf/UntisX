@@ -212,6 +212,38 @@ interface UserDao {
 	@Upsert suspend fun upsertCustomTimeGrid(item: CustomTimeGridEntity)
 	@Delete suspend fun deleteCustomTimeGrid(item: CustomTimeGridEntity)
 
+	// Custom Subject Names
+	@Query("SELECT * FROM custom_subject_names WHERE userId = :userId")
+	fun getCustomSubjectNamesFlow(userId: Long): Flow<List<CustomSubjectNameEntity>>
+
+	@Query("SELECT * FROM custom_subject_names WHERE userId = :userId")
+	suspend fun getCustomSubjectNames(userId: Long): List<CustomSubjectNameEntity>
+
+	@Upsert
+	suspend fun upsertCustomSubjectName(item: CustomSubjectNameEntity)
+
+	@Delete
+	suspend fun deleteCustomSubjectName(item: CustomSubjectNameEntity)
+
+	@Query("DELETE FROM custom_subject_names WHERE userId = :userId")
+	suspend fun deleteAllCustomSubjectNames(userId: Long)
+
+	// Custom Weekday Names
+	@Query("SELECT * FROM custom_weekday_names WHERE userId = :userId")
+	fun getCustomWeekdayNamesFlow(userId: Long): Flow<List<CustomWeekdayNameEntity>>
+
+	@Query("SELECT * FROM custom_weekday_names WHERE userId = :userId")
+	suspend fun getCustomWeekdayNames(userId: Long): List<CustomWeekdayNameEntity>
+
+	@Upsert
+	suspend fun upsertCustomWeekdayName(item: CustomWeekdayNameEntity)
+
+	@Delete
+	suspend fun deleteCustomWeekdayName(item: CustomWeekdayNameEntity)
+
+	@Query("DELETE FROM custom_weekday_names WHERE userId = :userId")
+	suspend fun deleteAllCustomWeekdayNames(userId: Long)
+
 	@Insert
 	suspend fun insert(user: User): Long
 

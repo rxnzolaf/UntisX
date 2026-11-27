@@ -285,11 +285,8 @@
     <string name="loading_failed">Ladevorgang fehlgeschlagen</string>
     <string name="settings_dialog_url_open_title">Keine kompatible App gefunden</string>
     <string name="settings_dialog_url_open_text">UntisX konnte keine App finden, die mit dem Öffnen von Links umgehen kann.\nBitte stelle sicher, dass du einen Webbrowser installiert hast oder öffne den Link auf einem anderen Gerät:</string>
-    <string name="widget_configuration">Widget-Konfiguration</string>
     <string name="widget_timetable">Stundenplan</string>
     <string name="widget_timetable_empty">Kein Stundenplan für heute verfügbar</string>
-    <string name="widget_daily_messages">Tagesnachrichten</string>
-    <string name="widget_select_profile">Bitte wähle ein Profil für das Widget aus</string>
     <plurals name="main_time_diff_minutes">
         <item quantity="one">vor einer Minute</item>
         <item quantity="other">vor %d Minuten</item>
@@ -341,23 +338,11 @@
     <string name="all_datepicker_month_next">Nächster Monat</string>
     <string name="all_datepicker_month_previous">Vorheriger Monat</string>
     <string name="all_reload">Neu laden</string>
-    <string name="widget_next_lesson">Nächste Stunde</string>
-    <string name="widget_today">Heutiger Stundenplan</string>
-    <string name="widget_no_lessons_today">Keine Stunden heute</string>
-    <string name="widget_no_upcoming_lessons">Keine weiteren Stunden heute</string>
-    <string name="widget_not_logged_in">Kein Konto ausgewählt</string>
-    <string name="widget_tap_to_login">Tippen zum Anmelden</string>
-    <string name="widget_error_loading">Stundenplan konnte nicht geladen werden</string>
-    <string name="widget_tap_to_retry">Tippen zum Öffnen der App</string>
     <string name="widget_now">Jetzt</string>
     <string name="widget_in_minutes">In %1$d Min.</string>
     <string name="widget_cancelled">Ausfall</string>
     <string name="widget_substitution">Vertretung</string>
     <string name="widget_exam">Test</string>
-    <string name="widget_mode_day">Ein Tag (Heute)</string>
-    <string name="widget_mode_week">Gesamter Stundenplan (Ganze Woche)</string>
-    <string name="widget_disclaimer_title">Beta-Funktion</string>
-    <string name="widget_disclaimer_text">Die Widget-Funktion befindet sich noch in der Entwicklungsphase und funktioniert unter Umständen nicht auf jedem Gerät.</string>
     <string name="login_demo">Zuerst ausprobieren!</string>
     <string name="login_custom_timetable">Eigener Stundenplan</string>
     <string name="mainactivitydrawer_profile_edit_hint">Tippe auf ein Profil, um es zu bearbeiten</string>
@@ -441,4 +426,31 @@
     <string name="custom_short_name">Kürzel / Kurzname</string>
     <string name="custom_full_name">Vollständiger Name</string>
     <string name="custom_color">Farbe</string>
+    <string name="preference_category_custom_names">Eigene Namen</string>
+    <string name="custom_names_title">Eigene Namen &amp; Kürzel</string>
+    <string name="custom_names_desc">Eigene Spitznamen und Kürzel für Fächer und Wochentage festlegen</string>
+    <string name="custom_names_subjects_tab">Fächer</string>
+    <string name="custom_names_weekdays_tab">Wochentage</string>
+    <string name="custom_names_nickname">Spitzname (Vollständiger Name)</string>
+    <string name="custom_names_abbreviation">Kürzel / Abkürzung</string>
+    <string name="custom_names_edit_subject">Fachnamen anpassen</string>
+    <string name="custom_names_reset_subject">Zurücksetzen</string>
+    <string name="custom_names_reset_all">Alle eigenen Namen zurücksetzen</string>
+    <string name="custom_names_reset_confirm">Möchtest du wirklich alle eigenen Fach- und Wochentagsnamen zurücksetzen?</string>
+    <string name="custom_names_search_hint">Fächer durchsuchen…</string>
+    <string name="custom_names_export">Eigene Namen exportieren (JSON)</string>
+    <string name="custom_names_import">Eigene Namen importieren (JSON)</string>
+    <string name="custom_names_import_success">Eigene Namen erfolgreich importiert</string>
+    <string name="custom_names_import_error">Fehler beim Importieren der JSON-Datei</string>
+
+    <!-- Calendar integration -->
+    <string name="add_to_calendar">Zum Kalender hinzufügen</string>
+    <string name="calendar_app_not_found">Keine Kalender-App gefunden</string>
+    <string name="calendar_title_exam">Klausur: %s</string>
+    <string name="calendar_desc_subject">Fach: %s</string>
+    <string name="calendar_desc_teachers">Lehrer: %s</string>
+    <string name="calendar_desc_classes">Klasse: %s</string>
+    <string name="calendar_desc_type">Typ: %s</string>
+    <string name="calendar_desc_notes">Notizen: %s</string>
+    <string name="calendar_desc_footer">Hinzugefügt aus UntisX</string>
 </resources>

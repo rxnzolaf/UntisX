@@ -31,13 +31,26 @@ import com.rxnzolaf.untis.data.database.entities.CustomTeacherEntity
 import com.rxnzolaf.untis.data.database.entities.CustomRoomEntity
 import com.rxnzolaf.untis.data.database.entities.CustomSubjectEntity
 import com.rxnzolaf.untis.data.database.entities.CustomTimeGridEntity
+import com.rxnzolaf.untis.data.database.entities.CustomSubjectNameEntity
+import com.rxnzolaf.untis.data.database.entities.CustomWeekdayNameEntity
 import kotlinx.serialization.json.Json
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
+val MIGRATION_16_17 = object : androidx.room.migration.Migration(16, 17) {
+	override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+		db.execSQL(
+			"CREATE TABLE IF NOT EXISTS `custom_subject_names` (`userId` INTEGER NOT NULL, `subjectKey` TEXT NOT NULL, `nickname` TEXT NOT NULL DEFAULT '', `abbreviation` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`userId`, `subjectKey`))"
+		)
+		db.execSQL(
+			"CREATE TABLE IF NOT EXISTS `custom_weekday_names` (`userId` INTEGER NOT NULL, `dayOfWeek` INTEGER NOT NULL, `nickname` TEXT NOT NULL DEFAULT '', `abbreviation` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`userId`, `dayOfWeek`))"
+		)
+	}
+}
+
 @Database(
-	version = 16,
+	version = 17,
 	entities = [
 		User::class,
 		AbsenceReasonEntity::class,
@@ -59,6 +72,8 @@ import java.time.format.DateTimeFormatter
 		CustomRoomEntity::class,
 		CustomSubjectEntity::class,
 		CustomTimeGridEntity::class,
+		CustomSubjectNameEntity::class,
+		CustomWeekdayNameEntity::class,
 	],
 	autoMigrations = [
 		AutoMigration(from = 8, to = 9),
@@ -68,7 +83,8 @@ import java.time.format.DateTimeFormatter
 		AutoMigration(from = 12, to = 13),
 		AutoMigration(from = 13, to = 14),
 		AutoMigration(from = 14, to = 15),
-		AutoMigration(from = 15, to = 16)
+		AutoMigration(from = 15, to = 16),
+		AutoMigration(from = 16, to = 17)
 	]
 )
 @TypeConverters(UserConverters::class)
@@ -89,6 +105,7 @@ abstract class UserDatabase : RoomDatabase() {
 				.addMigrations(
 					*MIGRATIONS_USER_LEGACY.toTypedArray(),
 					MIGRATION_USER_7_8,
+					MIGRATION_16_17
 				)
 				.build()
 				INSTANCE = instance

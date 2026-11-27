@@ -83,8 +83,6 @@ class DailyWorker @AssistedInject constructor(
 			}
 		}
 
-		WidgetUpdateWorker.enqueue(workManager)
-
 		enqueueNext(applicationContext)
 		return Result.success()
 	}
